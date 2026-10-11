@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SAGMA | Industrial Machinery Exploration &amp; Fleet Registry</title>
+  <meta name="description" content="Explore the SAGMA Continuous Milling Suite in 3D. Diagram 69(b) Bucket Elevator with live kinematics, dedicated Machine Fleet Registry, Automated Asset Intake pipeline, and official SAGMA Light Mode." />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+
+<div id="app-shell">
+
+  <!-- ================================================
+       STICKY HEADER
+       ================================================ -->
+  <header class="app-header">
+    <a class="brand-mark" href="#" aria-label="SAGMA Home">
+      <span class="brand-logo-badge">S</span>
+      <span class="brand-name">SAGMA</span>
+    </a>
+
+    <span class="brand-divider"></span>
+
+    <!-- Top Navigation Bar -->
+    <nav class="header-nav" aria-label="Main navigation">
+      <button class="header-nav-btn active" id="btn-nav-explore" aria-current="page" title="Active 3D Viewport">
+        <span class="header-nav-dot"></span>
+        <span id="nav-explore-txt">Explore (Active Machine)</span>
+      </button>
+
+      <button class="header-nav-btn" id="btn-nav-library" title="Courseware Documentation &amp; Schematics">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        <span id="nav-library-txt">Courseware Library</span>
+      </button>
+
+      <!-- Machine Fleet: Primary Navigation CTA -->
+      <button class="header-nav-btn nav-fleet-cta" id="btn-nav-fleet" title="Open Machinery Equipment Fleet Registry">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="9" height="7" rx="1.5"/><rect x="13" y="3" width="9" height="7" rx="1.5"/><rect x="2" y="14" width="9" height="7" rx="1.5"/><rect x="13" y="14" width="9" height="7" rx="1.5"/></svg>
+        <span id="nav-fleet-txt">Machine Fleet</span>
+        <span class="fleet-tag-pill" id="fleet-count-pill">Fleet (2)</span>
+      </button>
+
+      <button class="header-nav-btn" id="btn-nav-tour" title="Guided Syllabus Learning Paths">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span id="nav-tour-txt">Learning Paths</span>
+      </button>
+
+      <button class="header-nav-btn" id="btn-nav-studio" title="X-Ray Cutaway &amp; Studio Mode">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span id="nav-studio-txt">Studio</span>
+      </button>
+    </nav>
+
+    <!-- Header Right Utilities -->
+    <div class="header-right">
+      <!-- Light / Dark Mode Theme Toggle -->
+      <button class="btn-theme-toggle" id="btn-theme-toggle" title="Toggle Light / Dark Mode" aria-label="Toggle Theme">
+        <svg id="theme-icon-sun" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="5"/>
+          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+      </button>
+
+      <!-- Language Selector -->
+      <div class="lang-selector-wrap" title="Select Platform Language">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        <select id="select-lang" class="lang-select" aria-label="Select language">
+          <option value="en" selected>EN - English</option>
+          <option value="fr">FR - Français</option>
+          <option value="es">ES - Español</option>
+          <option value="pt">PT - Português</option>
+          <option value="de">DE - Deutsch</option>
+        </select>
+      </div>
+
+      <span class="header-action-divider"></span>
+
+      <!-- Prominent Header Machine Start/Stop Toggle -->
+      <button class="header-action-btn header-machine-btn running" id="btn-header-machine-toggle" title="Toggle Machine Motion">
+        <span class="machine-pulse-dot"></span>
+        <span id="header-machine-label">&#9632; Stop Machine</span>
+      </button>
+
+      <span class="header-action-divider"></span>
+
+      <span class="header-chip" id="header-chip">
+        <span class="live-dot"></span>
+        <span id="brand-sub-txt">Diagram 69(b) - Live</span>
+      </span>
+
+      <span class="header-action-divider"></span>
+
+      <!-- Turntable toggle -->
+      <button class="header-action-btn" id="btn-turntable" title="Toggle turntable rotation">
+        &#8634; <span id="turntable-label">Turntable</span>
+      </button>
+
+      <!-- Auto Tour -->
+      <button class="header-action-btn" id="btn-auto-tour" title="Start guided component tour">
+        &#9654; <span id="tour-btn-label">Tour</span>
+      </button>
+
+      <!-- 16:9 Cinema -->
+      <button class="header-action-btn" id="btn-toggle-cinema" title="Toggle 16:9 cinema frame">
+        &#9638; <span id="cinema-label">16:9</span>
+      </button>
+
+      <span class="header-action-divider"></span>
+
+      <!-- VR -->
+      <button class="header-action-btn" id="btn-enter-vr" title="Enter WebXR VR mode">
+        &#128083; VR
+      </button>
+    </div>
+  </header>
+
+  <!-- ================================================
+       BODY: Rail + Stage
+       ================================================ -->
+  <div class="workspace-body">
+
+    <!-- Left Navigation Rail -->
+    <nav class="nav-rail" aria-label="Rail navigation">
+      <button class="rail-btn active" id="btn-rail-explore" title="Explore machine">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M12 2l9 20H3L12 2z"/></svg>
+        <span class="rail-label" id="rail-lbl-explore">Explore</span>
+      </button>
+      <button class="rail-btn" id="btn-rail-parts" title="Parts list">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span class="rail-label" id="rail-lbl-parts">Parts</span>
+      </button>
+
+      <span class="rail-sep"></span>
+
+      <button class="rail-btn" id="btn-rail-hazard" title="Hazard sensors">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+        <span class="rail-label" id="rail-lbl-hazard">Hazard</span>
+      </button>
+      <button class="rail-btn" id="btn-rail-faults" title="Fault diagnostics">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v4m0 4h.01"/></svg>
+        <span class="rail-label" id="rail-lbl-faults">Faults</span>
+      </button>
+
+      <div class="rail-bottom">
+        <button class="rail-btn" id="btn-rail-library" title="Technical Manuals &amp; Drawings">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          <span class="rail-label" id="rail-lbl-manual">Manual</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ============================================
+         THREE-PANEL WORKSPACE STAGE
+         ============================================ -->
+    <div class="workspace-stage">
+
+      <!-- LEFT: Parts Panel -->
+      <aside class="parts-panel" id="parts-panel-aside" aria-label="Component list">
+        <div class="panel-head">
+          <p class="panel-eyebrow">Diagram 69(b)</p>
+          <h2 class="panel-title" id="parts-panel-title">Components</h2>
+          <p class="panel-sub" id="parts-counter">13 registered nodes</p>
+        </div>
+
+        <div class="parts-scroll" id="parts-list-container">
+          <!-- Populated dynamically via app.js -->
+        </div>
+
+        <!-- Exploration progress -->
+        <div class="progress-card">
+          <div class="progress-row">
+            <span class="progress-label" id="lbl-your-exploration">Your Exploration</span>
+            <span class="progress-count" id="explored-count">0 / 13</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTER: 3D Canvas Viewport -->
+      <main class="canvas-column" id="three-container">
+
+        <!-- Loading overlay -->
+        <div id="loader-overlay">
+          <div class="loader-badge">S</div>
+          <p class="loader-title">Loading 3D Machinery Digital Twin</p>
+          <p class="loader-sub">elevator_full_diagram69b.glb</p>
+          <div class="spinner"></div>
+        </div>
+
+        <!-- Canvas topbar: Machine Start/Stop Controller + Action Icons -->
+        <div class="canvas-topbar">
+          <!-- Machine Operation Controller -->
+          <div class="machine-ctrl-card">
+            <button class="btn-machine-toggle" id="btn-machine-toggle" title="Start or Stop Machine">
+              <span class="btn-machine-icon" id="machine-btn-icon">&#9654;</span>
+              <span id="machine-btn-label">Start Machine</span>
+            </button>
+            <div class="machine-status-col">
+              <div class="machine-status-badge standby" id="machine-status-badge">
+                <span class="live-dot"></span>
+                <span id="machine-status-text">STANDBY - READY</span>
+              </div>
+              <div class="machine-readouts">
+                <span class="readout-item"><strong id="readout-speed">0.00</strong> m/s</span>
+                <span class="readout-sep">&bull;</span>
+                <span class="readout-item"><strong id="readout-rpm">0.0</strong> RPM</span>
+                <span class="readout-sep">&bull;</span>
+                <span class="readout-item"><strong id="readout-tonnage">0.0</strong> t/h</span>
+              </div>
+            </div>
+            <button class="sound-toggle-btn" id="btn-sound-toggle" title="Toggle audio simulation">
+              <span id="sound-icon">&#128266;</span> <span id="sound-toggle-label">Sound OFF</span>
+            </button>
+          </div>
+
+          <div class="canvas-top-actions">
+            <button class="canvas-icon-btn" id="btn-explode-quick" title="Toggle exploded view">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            </button>
+            <button class="canvas-icon-btn" id="btn-reset-view" title="Reset camera">
+              <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Floating 3D HUD Callout Banners Overlay -->
+        <div class="hud-overlay" id="hud-overlay" aria-label="3D Component Annotations">
+          <!-- Populated dynamically via app.js -->
+        </div>
+
+        <!-- Interactive Guided Tour HUD (floating bottom card) -->
+        <div class="tour-hud" id="tour-hud" style="display:none;">
+          <div class="tour-hud-top">
+            <span class="tour-step-badge" id="tour-step-badge">Step 1 of 13</span>
+            <div class="tour-hud-controls">
+              <button class="tour-ctrl-btn" id="btn-tour-prev" title="Previous component">&larr; <span id="tour-prev-txt">Prev</span></button>
+              <button class="tour-ctrl-btn active" id="btn-tour-play" title="Play or pause tour">&#10074;&#10074; <span id="tour-play-txt">Pause</span></button>
+              <button class="tour-ctrl-btn" id="btn-tour-next" title="Next component"><span id="tour-next-txt">Next</span> &rarr;</button>
+              <button class="tour-ctrl-btn" id="btn-tour-close" title="Close tour">&times;</button>
+            </div>
+          </div>
+          <div class="tour-hud-body">
+            <span class="tour-part-num" id="tour-part-num">01</span>
+            <div class="tour-hud-text">
+              <h4 class="tour-part-title" id="tour-part-title">Split Removable Upper Hood</h4>
+              <p class="tour-narrative" id="tour-narrative">Crowned two-piece galvanized head hood with inspection access port and discharge trajectory contour.</p>
+            </div>
+          </div>
+          <div class="tour-progress-bar">
+            <div class="tour-progress-fill" id="tour-progress-fill" style="width: 7.6%;"></div>
+          </div>
+        </div>
+
+        <!-- Canvas bottombar: X-Ray, Opacity, Exploded Sliders -->
+        <div class="canvas-bottom-bar">
+          <div class="canvas-ctrl-group">
+            <button class="canvas-ctrl-btn active" id="btn-exterior">
+              <span id="btn-exterior-txt">Exterior</span>
+            </button>
+            <button class="canvas-ctrl-btn" id="btn-cutaway">
+              <span id="btn-cutaway-txt">X-Ray Cutaway</span>
+            </button>
+            <span class="ctrl-divider"></span>
+          </div>
+
+          <div class="bottom-sliders">
+            <div class="slider-group">
+              <div class="slider-label-col">
+                <span class="slider-title" id="lbl-casing-opacity">Casing Opacity</span>
+                <span class="slider-readout" id="opacity-readout">35%</span>
+              </div>
+              <input type="range" class="slider-input" id="slider-opacity" min="0.08" max="1.0" step="0.02" value="0.35" aria-label="Casing opacity" />
+            </div>
+
+            <span class="ctrl-divider"></span>
+
+            <div class="slider-group">
+              <div class="slider-label-col">
+                <span class="slider-title" id="lbl-exploded-view">Exploded View</span>
+                <span class="slider-readout" id="exploded-readout">0% Offset</span>
+              </div>
+              <input type="range" class="slider-input" id="slider-exploded" min="0" max="1.0" step="0.02" value="0" aria-label="Exploded view" />
+            </div>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- RIGHT: Dynamic Telemetry & Inspection Panel -->
+      <aside class="telemetry-panel" id="telemetry-panel" aria-label="Telemetry and diagnostics">
+
+        <!-- Tabs Header -->
+        <div class="telemetry-tabs-bar" role="tablist">
+          <button class="telem-tab-btn active" data-tab="tab-specs" id="telem-btn-specs" role="tab" aria-selected="true">
+            <span id="tab-specs-lbl">Specifications</span>
+          </button>
+          <button class="telem-tab-btn" data-tab="tab-sensors" id="telem-btn-sensors" role="tab" aria-selected="false">
+            <span id="tab-sensors-lbl">Sensors</span>
+          </button>
+          <button class="telem-tab-btn" data-tab="tab-faults" id="telem-btn-faults" role="tab" aria-selected="false">
+            <span id="tab-faults-lbl">Faults</span>
+          </button>
+        </div>
+
+        <div class="telem-body">
+
+          <!-- TAB 1: Specifications & Safety -->
+          <div class="telem-view active" id="tab-specs" role="tabpanel">
+
+            <div class="inspection-card" id="inspection-card">
+              <div class="card-top-row">
+                <span class="node-pill-tag">Part <span id="tel-part-num">01</span></span>
+                <span class="node-elevation" id="tel-elevation">Z = 9.20 m</span>
+              </div>
+
+              <div class="part-header-block">
+                <span class="part-section-label" id="tel-part-section">Head Section</span>
+                <h3 class="part-main-name" id="tel-part-title">Split Removable Upper Hood</h3>
+              </div>
+
+              <div class="data-table-grid">
+                <div class="grid-item">
+                  <span class="grid-lbl" id="lbl-feed-flow">Feed Flow</span>
+                  <span class="grid-val" id="tel-flow-dir">Centrifugal Discharge</span>
+                </div>
+                <div class="grid-item">
+                  <span class="grid-lbl" id="lbl-belt-speed">Scale Speed</span>
+                  <span class="grid-val mono" id="tel-belt-speed">2.80 m/s</span>
+                </div>
+                <div class="grid-item">
+                  <span class="grid-lbl" id="lbl-tolerance">Clearance / Tol.</span>
+                  <span class="grid-val mono" id="tel-tolerance-short">1/8" (3.18 mm)</span>
+                </div>
+                <div class="grid-item">
+                  <span class="grid-lbl" id="lbl-elevation">Shaft Datum</span>
+                  <span class="grid-val mono">Y = +9.20 m</span>
+                </div>
+              </div>
+
+              <!-- OSHA Decal -->
+              <div class="hazard-decal-card">
+                <span class="decal-warning-badge">OSHA / NFPA</span>
+                <p class="decal-content" id="decal-text">WARNING: Turn off and lock out power before removing split head hood.</p>
+              </div>
+
+              <!-- Safety Protocol -->
+              <div class="specs-block">
+                <span class="specs-title" id="lbl-safety-protocol">Safety Protocol</span>
+                <p class="specs-text" id="tel-safety-notice">Perform Lockout/Tagout (LOTO) on main drive breaker before removing hood fasteners.</p>
+              </div>
+
+              <!-- Engineering Specs -->
+              <div class="specs-block">
+                <span class="specs-title" id="lbl-eng-specs">Engineering Description</span>
+                <p class="specs-text" id="tel-specs-desc">Two-piece split contoured head casing designed for rapid interior pulley and discharge lip access.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- TAB 2: Hazard Sensors -->
+          <div class="telem-view" id="tab-sensors" role="tabpanel">
+            <p class="section-eyebrow" id="sensor-eyebrow-txt">Chief &amp; Lambton Instrumentation</p>
+            <h3 class="section-heading" id="sensor-heading-txt">Active Safety Interlocks</h3>
+            <p class="section-sub" id="sensor-sub-txt">Real-time status of NFPA 61 / OSHA 1910.272 certified sensors:</p>
+            <div class="sensor-list" id="sensors-container">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+
+          <!-- TAB 3: Fault Diagnostics -->
+          <div class="telem-view" id="tab-faults" role="tabpanel">
+            <p class="section-eyebrow" id="fault-eyebrow-txt">Millwright Diagnostics</p>
+            <h3 class="section-heading" id="fault-heading-txt">Interactive Failure Scenarios</h3>
+            <p class="section-sub" id="fault-sub-txt">Simulate real-world elevator malfunctions to inspect physical symptoms:</p>
+
+            <div class="fault-btns">
+              <button class="fault-btn active" data-fault="fault_backlegging">Back-Legging</button>
+              <button class="fault-btn" data-fault="fault_misalignment">Belt Misalign</button>
+              <button class="fault-btn" data-fault="fault_slip">Pulley Slip</button>
+            </div>
+
+            <div class="fault-card" id="fault-card">
+              <div class="fault-card-head">
+                <span class="fault-icon">&#9888;</span>
+                <span class="fault-title" id="fault-name">Back-Legging (Discharge Recirculation)</span>
+              </div>
+              <p class="fault-field"><strong id="lbl-fault-trigger">Trigger:</strong> <span id="fault-trigger">Discharge Baffle Clearance &gt; 1/4"</span></p>
+              <p class="fault-field"><strong id="lbl-fault-symptom">Symptoms:</strong> <span id="fault-symptom">Grain recirculates down casing down-leg; motor amperage spikes.</span></p>
+              <p class="fault-field"><strong id="lbl-fault-remedy">Remedy:</strong> <span id="fault-remedy">Reset baffle to 1/8" (3.18 mm) nominal; 1/4" over lap splice.</span></p>
+              <div class="fault-actions">
+                <button class="btn-simulate" id="btn-simulate-fault">Simulate in 3D</button>
+                <button class="btn-resolve" id="btn-resolve-fault" style="display:none;">Clear Fault</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </aside>
+
+    </div><!-- /workspace-stage -->
+  </div><!-- /workspace-body -->
+
+  <!-- ================================================
+       MACHINE FLEET REGISTRY MODAL (Requirement 2)
+       ================================================ -->
+  <div class="fleet-modal-backdrop" id="fleet-modal" style="display:none;">
+    <div class="fleet-modal-box">
+      <div class="fleet-modal-head">
+        <div class="fleet-title-group">
+          <div class="fleet-logo-badge">&#9881;</div>
+          <div>
+            <h2 class="fleet-modal-title">SAGMA Milling Equipment Registry &amp; 3D Fleet</h2>
+            <p class="fleet-modal-sub">Dedicated Interactive Machinery Assemblies &amp; Digital Twins across Syllabus Modules</p>
+          </div>
+        </div>
+        <button class="library-modal-close" id="btn-close-fleet" title="Close Fleet Registry">&#10005;</button>
+      </div>
+
+      <div class="fleet-toolbar">
+        <div class="fleet-filter-group">
+          <button class="fleet-filter-btn active" data-filter="all">All Machinery (2)</button>
+          <button class="fleet-filter-btn" data-filter="live">WebGL Live (2)</button>
+        </div>
+
+        
+      </div>
+
+      <div class="fleet-cards-grid" id="fleet-cards-container">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================
+       COURSEWARE TECHNICAL LIBRARY & PARTS SCHEDULE MODAL
+       ================================================ -->
+  <div class="library-modal-backdrop" id="library-modal" style="display:none;">
+    <div class="library-modal-box">
+      <div class="library-modal-head">
+        <div class="library-modal-title-group">
+          <span class="library-logo-badge">S</span>
+          <div>
+            <h2 class="library-modal-title" id="lib-title">SAGMA Courseware Library &amp; Parts Schedule</h2>
+            <p class="library-modal-sub" id="lib-subtitle">Official Reference Drawings - Module 2 Section 1.1.1 - Diagram 69(b) / 19(a)</p>
+          </div>
+        </div>
+
+        <!-- Machine Selector Toggle in Modal Head -->
+        <div class="library-machine-toggle">
+          <button class="lib-mach-toggle-btn active" id="btn-lib-mach-elevator" data-mach="bucket_elevator">Diagram 69(b) Bucket Elevator</button>
+          <button class="lib-mach-toggle-btn" id="btn-lib-mach-satake" data-mach="satake_vbf">Satake VBF Maize Degermer</button>
+        </div>
+
+        <button class="library-modal-close" id="btn-close-library" title="Close Technical Library">&#10005;</button>
+      </div>
+
+      <!-- TABS ROW FOR BUCKET ELEVATOR -->
+      <div class="library-tabs" id="lib-tabs-elevator">
+        <button class="library-tab-btn active" data-libtab="elevator-schematic">Diagram 69(b) Schematics</button>
+        <button class="library-tab-btn" data-libtab="elevator-diagram19b">Manual Drawing 19(b)</button>
+        <button class="library-tab-btn" data-libtab="elevator-schedule">Official Parts Register</button>
+      </div>
+
+      <!-- TABS ROW FOR SATAKE VBF DEGERMER -->
+      <div class="library-tabs" id="lib-tabs-satake" style="display:none;">
+        <button class="library-tab-btn active" data-libtab="satake-diagram4a">Diagram 4(a) Isometric</button>
+        <button class="library-tab-btn" data-libtab="satake-exploded">Drawing 4(a) Exploded</button>
+        <button class="library-tab-btn" data-libtab="satake-diagram3">Process Diagram 3</button>
+        <button class="library-tab-btn" data-libtab="satake-schedule">Official Parts Register</button>
+      </div>
+
+      <!-- CONTENTS FOR BUCKET ELEVATOR -->
+      <div class="library-tab-content active" id="libtab-elevator-schematic">
+        <div class="library-img-frame">
+          <img src="/assets/images/diagram19a.png" alt="Diagram 19(a) Bucket Elevator Schematic" class="library-img" />
+        </div>
+        <p class="library-caption">SAGMA Diagram 19(a) / 69(b): Authoritative general arrangement schematic of industrial vertical bucket elevator assembly.</p>
+      </div>
+
+      <div class="library-tab-content" id="libtab-elevator-diagram19b" style="display:none;">
+        <div class="library-img-frame">
+          <img src="/assets/images/diagram19b.png" alt="Diagram 19(b) Head and Boot Assembly" class="library-img" />
+        </div>
+        <p class="library-caption">SAGMA Diagram 19(b): Sectional engineering detail of crowned drive head assembly, centrifugal discharge saddle, and twin-screw take-up boot.</p>
+      </div>
+
+      <div class="library-tab-content" id="libtab-elevator-schedule" style="display:none;">
+        <div class="parts-table-wrap">
+          <table class="parts-schedule-table">
+            <thead>
+              <tr>
+                <th style="width:70px;">Part #</th>
+                <th>Component Name</th>
+                <th>Section</th>
+                <th>Feed Flow Axis</th>
+                <th>Engineering Clearance / Tolerance</th>
+              </tr>
+            </thead>
+            <tbody id="elevator-schedule-tbody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CONTENTS FOR SATAKE VBF DEGERMER -->
+      <div class="library-tab-content" id="libtab-satake-diagram4a" style="display:none;">
+        <div class="library-img-frame">
+          <img src="/assets/machines/satake_degermer/diagrams/diagram_4a_isometric.png" alt="Diagram 4(a) Satake VBF Degermer Isometric" class="library-img" />
+        </div>
+        <p class="library-caption">SAGMA Diagram 4(a): Isometric engineering view of Satake VBF Vertical Maize Degermer showing feed inlet with permanent magnet trap, top discharge flap, and aspiration hood.</p>
+      </div>
+
+      <div class="library-tab-content" id="libtab-satake-exploded" style="display:none;">
+        <div class="library-img-frame">
+          <img src="/assets/machines/satake_degermer/diagrams/M4 DIAGRAM 4 (a) - ISOMATRIC EXPLODED VIEW.png" alt="Diagram 4(a) Satake VBF Exploded View" class="library-img" />
+        </div>
+        <p class="library-caption">SAGMA Diagram 4(a) Sectional &amp; Exploded View: Detailed arrangement of slotted screen cage, dual-opposed beater bars, vertical rotor shaft, and bottom distribution spiral.</p>
+      </div>
+
+      <div class="library-tab-content" id="libtab-satake-diagram3" style="display:none;">
+        <div class="library-img-frame">
+          <img src="/assets/machines/satake_degermer/diagrams/diagram_3_schematic.png" alt="Diagram 3 Satake VBF Schematic" class="library-img" />
+        </div>
+        <p class="library-caption">SAGMA Diagram 3: Schematic process flow and mechanical degermination principle of the Satake VBF vertical friction-type decorticator.</p>
+      </div>
+
+      <div class="library-tab-content" id="libtab-satake-schedule" style="display:none;">
+        <div class="parts-table-wrap">
+          <table class="parts-schedule-table">
+            <thead>
+              <tr>
+                <th style="width:70px;">Part #</th>
+                <th>Component Name</th>
+                <th>Section</th>
+                <th>Feed Flow Axis</th>
+                <th>Engineering Clearance / Tolerance</th>
+              </tr>
+            </thead>
+            <tbody id="satake-schedule-tbody">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /app-shell -->
+
+<script type="module" src="/src/app.js"></script>
+</body>
+</html>

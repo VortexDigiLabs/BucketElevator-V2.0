@@ -1,0 +1,209 @@
+{
+  "machineId": "satake_vbf",
+  "name": "Satake VBF Vertical Maize Degermer",
+  "module": "SAGMA Maize Milling Module 4: Mechanical Degermination & Flaking",
+  "modelPath": "/assets/machines/satake_degermer/models/satake_vbf.glb",
+  "diagramPath": "/assets/machines/satake_degermer/diagrams/diagram_4a_isometric.png",
+  "specifications": {
+    "type": "Vertical friction-type degermer and decorticator",
+    "capacity": "4.5 t/h conditioned maize",
+    "rotorSpeed": "465 RPM",
+    "motorPower": "75 kW electric motor",
+    "height": "1.85 m",
+    "scouringAction": "Kernel-to-kernel and kernel-to-screen intensive friction"
+  },
+  "parts": [
+    {
+      "id": "01",
+      "name": "Feed Inlet & Permanent Magnet",
+      "nodeName": "Satake_Feed_Inlet_Magnet",
+      "anchor": [
+        0.35,
+        1.75,
+        0.0
+      ],
+      "feed": "Conditioned grain intake from dampener",
+      "elevation": "1.75 m",
+      "velocity": "Gravity inflow",
+      "safety": "Check and clean permanent magnet every 4 hours. Protects screens from tramp metal sparks.",
+      "tolerance": "Rare-earth magnetic trap rated >10,000 Gauss.",
+      "category": "INLET & FEED ASSEMBLY"
+    },
+    {
+      "id": "02",
+      "name": "Horizontal Inlet Screw Feeder",
+      "nodeName": "Satake_Inlet_Screw_Feeder",
+      "anchor": [
+        0.25,
+        1.45,
+        0.0
+      ],
+      "feed": "Horizontal metered feed into lower housing",
+      "elevation": "1.45 m",
+      "velocity": "Variable speed drive",
+      "safety": "Keep drive guard locked. Interlocked with main rotor motor.",
+      "tolerance": "Maintains constant volumetric filling to prevent chamber starving.",
+      "category": "INLET & FEED ASSEMBLY"
+    },
+    {
+      "id": "03",
+      "name": "Bottom Distribution Scroll",
+      "nodeName": "Satake_Distribution_Scroll",
+      "anchor": [
+        0.0,
+        0.45,
+        0.0
+      ],
+      "feed": "Vertical upward propulsion into scouring chamber",
+      "elevation": "0.45 m",
+      "velocity": "465 RPM",
+      "safety": "High shear pinch point. Completely enclosed within bottom housing.",
+      "tolerance": "Continuously forces grain upward against gravitational resistance.",
+      "category": "ROTOR & CHAMBER"
+    },
+    {
+      "id": "04",
+      "name": "Vertical Steel Rotor & Hollow Shaft",
+      "nodeName": "Satake_Vertical_Steel_Rotor",
+      "anchor": [
+        0.0,
+        1.05,
+        0.0
+      ],
+      "feed": "Intense kernel-to-kernel friction zone",
+      "elevation": "1.05 m",
+      "velocity": "465 RPM",
+      "safety": "Balanced dynamically. Split into two halves for maintenance under strict LOTO.",
+      "tolerance": "Hollow core channels forced cooling air directly behind beater bars.",
+      "category": "ROTOR & CHAMBER"
+    },
+    {
+      "id": "05",
+      "name": "Detachable Steel Beater Bars (Dual Opposed)",
+      "nodeName": "Satake_Beater_Bars",
+      "anchor": [
+        0.15,
+        1.1,
+        0.0
+      ],
+      "feed": "Radial grain agitation and tumbling",
+      "elevation": "1.10 m",
+      "velocity": "465 RPM",
+      "safety": "Inspect wear plates weekly. Worn beaters increase broken kernel percentage.",
+      "tolerance": "Reversible hardened tool steel bars mounted 180 degrees apart.",
+      "category": "ROTOR & CHAMBER"
+    },
+    {
+      "id": "06",
+      "name": "Multifaceted Slotted Screen Jackets",
+      "nodeName": "Satake_Slotted_Screens",
+      "anchor": [
+        -0.22,
+        1.05,
+        0.0
+      ],
+      "feed": "Pericarp (bran) and germ offal aspiration exit",
+      "elevation": "1.05 m",
+      "velocity": "Static boundary",
+      "safety": "Inspect screen apertures for blinding or rupture. High pressure zone.",
+      "tolerance": "Slotted apertures calibrated for maize pericarp release while retaining samp.",
+      "category": "SCREEN ASSEMBLY"
+    },
+    {
+      "id": "07",
+      "name": "Top Outlet & Weighted Retention Flap Gate",
+      "nodeName": "Satake_Top_Outlet_Weighted_Flap",
+      "anchor": [
+        -0.3,
+        1.55,
+        0.0
+      ],
+      "feed": "Scoured degermed samp and whole endosperm discharge",
+      "elevation": "1.55 m",
+      "velocity": "Over-the-weir discharge",
+      "safety": "Do not overload weights. Excessive back-pressure stalls main motor.",
+      "tolerance": "Controls chamber compaction severity and degerming efficiency.",
+      "category": "DISCHARGE & PRESSURE CONTROL"
+    },
+    {
+      "id": "08",
+      "name": "Auto-Weight CCU Ammeter Control Module",
+      "nodeName": "Satake_Auto_Weight_CCU_Module",
+      "anchor": [
+        -0.38,
+        1.65,
+        0.15
+      ],
+      "feed": "Electronic motor feedback bus",
+      "elevation": "1.65 m",
+      "velocity": "Automated closed-loop",
+      "safety": "Maintains motor current below 75 kW thermal overload threshold.",
+      "tolerance": "Modulates outlet gate actuator in real-time based on ammeter current draw.",
+      "category": "INSTRUMENTATION & CONTROL"
+    },
+    {
+      "id": "09",
+      "name": "Air Induction Cooling Fan",
+      "nodeName": "Satake_Air_Induction_Fan",
+      "anchor": [
+        0.0,
+        0.2,
+        -0.35
+      ],
+      "feed": "Cool air injection through hollow shaft slots",
+      "elevation": "0.20 m",
+      "velocity": "Forced aspiration",
+      "safety": "Air induction clears chamber during emergency shutdown or choke clearing.",
+      "tolerance": "Reduces internal friction temperature to preserve germ oil quality.",
+      "category": "ASPIRATION & COOLING"
+    },
+    {
+      "id": "10",
+      "name": "Offal Exhaust Aspiration Hood",
+      "nodeName": "Satake_Offal_Exhaust_Hood",
+      "anchor": [
+        0.0,
+        1.4,
+        -0.28
+      ],
+      "feed": "Pneumatic conveyance of bran skins and germ fines to cyclone",
+      "elevation": "1.40 m",
+      "velocity": "Negative pressure air stream",
+      "safety": "Aspiration duct must maintain minimum 20 m/s transport velocity to prevent settling.",
+      "tolerance": "Directly evacuates through-screen offal without flour build-up.",
+      "category": "ASPIRATION & COOLING"
+    },
+    {
+      "id": "11",
+      "name": "75 kW Main Drive Motor & V-Belt Assembly",
+      "nodeName": "Satake_Drive_Motor_75kW",
+      "anchor": [
+        0.45,
+        0.3,
+        0.0
+      ],
+      "feed": "Torque transmission to vertical rotor shaft",
+      "elevation": "0.30 m",
+      "velocity": "1450 RPM motor to 465 RPM rotor",
+      "safety": "Mandatory padlock lock-out before removing screen frames or rotor bolts.",
+      "tolerance": "Heavy-duty V-belt drive with matched multi-groove pulleys and torque slide.",
+      "category": "BASE & DRIVE UNIT"
+    },
+    {
+      "id": "12",
+      "name": "Main Stand & Thrust Bearing Base Frame",
+      "nodeName": "Satake_Base_Frame_Stand",
+      "anchor": [
+        0.0,
+        0.15,
+        0.0
+      ],
+      "feed": "Structural machine anchor",
+      "elevation": "0.15 m",
+      "velocity": "Static base",
+      "safety": "Vibration monitoring points on upper and lower spherical roller thrust bearings.",
+      "tolerance": "Precision machined vertical housing maintaining concentric rotor-to-screen clearance.",
+      "category": "BASE & DRIVE UNIT"
+    }
+  ]
+}

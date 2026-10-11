@@ -1,0 +1,267 @@
+{
+  "machine": {
+    "name": "SAGMA Diagram 69(b) Bucket Elevator",
+    "sagmaModuleReference": "SAGMA Wheat & Maize Processing Module 2 Sec 1.1.1, Module 4 Ch 9, Module 8 Sec 3",
+    "diagramReference": "Diagram 69(b) - Industrial Bucket Elevator",
+    "modelPath": "public/models/elevator_full_diagram69b.glb",
+    "elevation_m": 9.63,
+    "headPulleyDiameter_mm": 391,
+    "bootPulleyDiameter_mm": 391,
+    "nominalBucketPitch_m": 0.30,
+    "totalBuckets": 58,
+    "beltStandard": "DIN 22104 Antistatic",
+    "dischargePrinciple": "Centrifugal Discharge via Tangential Saddle"
+  },
+  "brandColors": {
+    "navy": {
+      "hex": "#0E2A47",
+      "name": "SAGMA Navy",
+      "usage": "Primary structural elements, headers, high-contrast badges"
+    },
+    "wheatGold": {
+      "hex": "#DDA73A",
+      "name": "SAGMA Wheat Gold",
+      "usage": "Callout pin accents, active highlights, grain flow, badges"
+    },
+    "slate": {
+      "hex": "#334155",
+      "name": "SAGMA Slate",
+      "usage": "Secondary casing, tooltips, inspection panels, neutral structural ties"
+    }
+  },
+  "hazardSensors": [
+    {
+      "id": "sensor_m300",
+      "name": "4B M300 Slipswitch",
+      "type": "Inductive Underspeed Monitor",
+      "location": "Head Drive Shaft / Non-Drive Stub",
+      "partTarget": "06",
+      "meshNode": "Sensor_Head_Thermal_Slip_Detector",
+      "setpoint": "-20% Underspeed Trip",
+      "tolerance": "Calibration target 100% running speed. Immediate shutdown latch at 80% nominal speed (OSHA 1910.272).",
+      "purpose": "Averts frictional heating and fire runaway caused by belt slippage against the driving pulley."
+    },
+    {
+      "id": "sensor_binswitch",
+      "name": "4B Binswitch Capacitance Choke Detector",
+      "type": "Capacitance Level / Plug Sensor",
+      "location": "Centrifugal Discharge Spout Throat",
+      "partTarget": "04",
+      "meshNode": "Discharge_Spout_Centrifugal",
+      "setpoint": "Immediate Choke Relay Trip",
+      "tolerance": "Fitted flush on vertical baffle plate. 1/8\" (3.18 mm) minimum clearance. Tripping immediately cuts infeed slide gate.",
+      "purpose": "Detects discharge blockage before grain backs up into the rotating head wheel."
+    },
+    {
+      "id": "sensor_rub_pads",
+      "name": "Boone / Rolfes Brass Rub Sensor Pads",
+      "type": "Continuous Thermocouple Temperature Probe",
+      "location": "Casing Trunking Interior Flanges (Up-Leg & Down-Leg)",
+      "partTarget": "07",
+      "meshNode": "Casing_Trunking_UpLeg",
+      "setpoint": "Alarm at 60°C / Interlock Trip at 65°C",
+      "tolerance": "Brass half-moon wear face directly monitored by embedded Type T thermocouple. Senses lateral belt wander friction.",
+      "purpose": "Detects belt misalignment before belt edge abrades through steel trunking wall."
+    }
+  ],
+  "faultDiagnostics": [
+    {
+      "id": "fault_backlegging",
+      "name": "Back-Legging (Discharge Recirculation)",
+      "triggerSource": "Discharge Baffle / Head Saddle Misadjustment",
+      "affectedParts": ["03", "04", "09"],
+      "symptom": "Grain falls down down-leg trunking rather than clearing the throat; increased drive amperage and motor overheating.",
+      "remedy": "Adjust adjustable rubber deflector baffle to 1/8\" (3.18 mm) nominal gap (1/4\" over lap splice). Check pulley RPM.",
+      "rootCause": "Discharge baffle clearance out of spec (> 1/4\" / 6.35 mm) or belt speed below 2.50 m/s."
+    },
+    {
+      "id": "fault_misalignment",
+      "name": "Belt Lateral Misalignment & Casing Tracking Drift",
+      "triggerSource": "Boot Take-Up Screw Asymmetry / Crown Wear",
+      "affectedParts": ["07", "08", "11"],
+      "symptom": "Belt drifts towards casing wall; Boone/Rolfes brass rub sensors detect frictional heat spike (> 60°C).",
+      "remedy": "Perform twin screw take-up adjustment with equal turns L/R under LOTO. Verify head pulley 391 mm camber.",
+      "rootCause": "Unequal tension screw torque or uneven bucket bolt clamping across antistatic belt carcass."
+    },
+    {
+      "id": "fault_slip",
+      "name": "Pulley Slippage & Frictional Overheating",
+      "triggerSource": "Drive Pulley Face / Insufficient Belt Slack Take-Up",
+      "affectedParts": ["02", "05", "06"],
+      "symptom": "4B M300 Slipswitch detects speed differential > 20%; drive motor draws excess current with reduced conveying lift.",
+      "remedy": "Inspect take-up screw tensioners. Verify crowned head pulley lagging wear. Check drive belt deflection (Span/64).",
+      "rootCause": "Material choke in boot sump or drive belt slack exceeding span/64 tolerance limit."
+    }
+  ],
+  "parts": [
+    {
+      "partNumber": "01",
+      "officialName": "Split Removable Upper Hood",
+      "meshNodeName": "Casing_Head_SplitHood_Removable",
+      "section": "HEAD ASSEMBLY",
+      "description": "The entire housing is split and can be removed for inspection, belt splicing, and pulley maintenance without disturbing the vertical casing legs.",
+      "feedFlowDirection": "Discharge Crown / Tangential Exit",
+      "safetyNotice": "Ensure drive motor is locked out before hood removal. Guard against accidental belt runback.",
+      "hazardDecal": "WARNING: ROTATING DRIVES & MOVING BUCKETS",
+      "engineeringTolerance": "Split flange gasket compression: 2.0 mm uniform seal. Fasteners torqued to 35 Nm.",
+      "anchorPosition": [0.0, 9.45, 0.18],
+      "boundsCenter": [0.0, 9.20, 0.0]
+    },
+    {
+      "partNumber": "02",
+      "officialName": "Crowned Head Drive Pulley (391 mm)",
+      "meshNodeName": "Pulley_Head_Drive_Crowned",
+      "section": "HEAD ASSEMBLY",
+      "description": "Machined with a convex camber (crowned face) to run true and naturally self-center the belt. 391 mm outer diameter derived strictly from SolidWorks CAD geometry.",
+      "feedFlowDirection": "Counter-Clockwise Rotation / Discharge Apex",
+      "safetyNotice": "Critical nip point between crowned pulley and belt. Never remove protective side inspection guards while motor is energized.",
+      "hazardDecal": "DANGER: MOVING SHEAVE & BELT PINCH POINT",
+      "engineeringTolerance": "391 mm OD with 3.0 mm center crown camber. Dynamic balancing ISO 1940 Grade G6.3.",
+      "anchorPosition": [-0.15, 9.20, 0.22],
+      "boundsCenter": [0.0, 9.20, 0.0]
+    },
+    {
+      "partNumber": "03",
+      "officialName": "Centrifugal Discharge Saddle (Grain)",
+      "meshNodeName": "Casing_Head_Lower_With_Saddle",
+      "section": "DISCHARGE SPARK & FLOW",
+      "description": "For grains, a curved aerodynamic saddle positioned beneath the head pulley guides tangential stock release directly into the discharge spout without recirculation back down the legs.",
+      "feedFlowDirection": "Tangential Divergence into Discharge Spout",
+      "safetyNotice": "Wear plates under saddle must be inspected regularly for erosion or sharp burrs that cause friction ignition.",
+      "hazardDecal": "CAUTION: GRAIN IMPACT ABRASION & HOTSPOT ZONE",
+      "engineeringTolerance": "Discharge baffle clearance: 1/8\" (3.18 mm) standard nominal, 1/4\" (6.35 mm) max over belt lap splice. Sensor: 4B Binswitch choke detector.",
+      "anchorPosition": [0.12, 8.95, 0.20],
+      "boundsCenter": [0.06, 8.95, 0.0]
+    },
+    {
+      "partNumber": "04",
+      "officialName": "Wear Plates & Flexible Rubber Deflector",
+      "meshNodeName": "Discharge_Spout_Centrifugal",
+      "section": "DISCHARGE SPARK & FLOW",
+      "description": "Heavy-duty abrasion-resistant steel liner plates and a flexible rubber deflector prevent grain degradation and kernel shatter from high-velocity centrifugal discharge impact.",
+      "feedFlowDirection": "Downwards Spout Exit to Downstream Processing",
+      "safetyNotice": "Ensure flexible rubber deflector is antistatic compliant to avoid electrostatic accumulation.",
+      "hazardDecal": "ATTENTION: 4B BINSWITCH CHOKE DETECTOR FITTED",
+      "engineeringTolerance": "Baffle clearance tolerance: 1/8\" (3.18 mm) standard, 1/4\" (6.35 mm) over lap splice. Flush-mounted 4B Binswitch capacitance choke/plug sensor.",
+      "anchorPosition": [0.52, 8.75, 0.18],
+      "boundsCenter": [0.46, 8.75, 0.0]
+    },
+    {
+      "partNumber": "05",
+      "officialName": "Gearmotor & Mounting Platform",
+      "meshNodeName": "Drive_Electric_Motor_Gearbox",
+      "section": "DRIVE KINEMATICS",
+      "description": "Industrial electric gearmotor with flexible coupling mounted on an elevated structural head bracket. Integrated mechanical backstop prevents reverse gravitational runback of laden buckets during shutdown.",
+      "feedFlowDirection": "Mechanical Torque Transmission to Head Pulley Shaft",
+      "safetyNotice": "Strict Electrical LOTO (Padlock + Hasps + Tag) mandatory prior to any drive or coupling inspection.",
+      "hazardDecal": "WARNING: AUTOMATIC MECHANICAL BACKSTOP & HIGH VOLTAGE",
+      "engineeringTolerance": "Drive V-belt deflection formula: Deflection = Belt Span / 64 under 50N test force. Mechanical backstop instantaneous sprag locking.",
+      "anchorPosition": [-0.42, 9.05, 0.45],
+      "boundsCenter": [-0.35, 9.05, 0.32]
+    },
+    {
+      "partNumber": "06",
+      "officialName": "Head Thermal & Belt Slip Sensor",
+      "meshNodeName": "Sensor_Head_Thermal_Slip_Detector",
+      "section": "SAFETY & FIRE PROTECTION",
+      "description": "Monitors speed differential between the drive pulley and belt face (OSHA 1910.272 compliant) using a 4B M300 Slipswitch inductive underspeed sensor to immediately detect slipping and avert frictional heating.",
+      "feedFlowDirection": "Rotational Velocity & Temperature Signal Bus",
+      "safetyNotice": "Life-safety device. Automatic interlock must trip elevator motor if slip exceeds 20% or bearing temp reaches 65°C.",
+      "hazardDecal": "SAFETY INTERLOCK: 4B M300 INDUCTIVE SLIPSWITCH",
+      "engineeringTolerance": "4B M300 Slipswitch auto-trip at -20% nominal underspeed. Sensor target air gap: 6 mm to 10 mm off shaft target flag.",
+      "anchorPosition": [0.0, 9.38, -0.22],
+      "boundsCenter": [0.0, 9.32, -0.17]
+    },
+    {
+      "partNumber": "07",
+      "officialName": "Independent Twin-Leg Trunking & Angle Flanges",
+      "meshNodeName": "Casing_Trunking_UpLeg",
+      "section": "CASING TRUNKING",
+      "description": "Modular dual vertical steel casing ducts joined by perimeter angle flanges with Boone/Rolfes brass half-moon rub sensors and NFPA 68 explosion relief vents with hand-tightened relief grommets.",
+      "feedFlowDirection": "Vertical Ascending Up-Leg Strand",
+      "safetyNotice": "Explosion relief vents must use hand-tightened relief grommets only. Wrenches or excessive torque are strictly prohibited as they prevent blast relief.",
+      "hazardDecal": "DANGER: EXPLOSION RELIEF VENT & BRASS RUB SENSORS",
+      "engineeringTolerance": "Boone/Rolfes brass rub sensor thermocouple trip at 65°C. Explosion vent fastening: Hand-tightened grommets only (wrenches prohibited).",
+      "anchorPosition": [-0.28, 4.95, 0.18],
+      "boundsCenter": [-0.1955, 4.95, 0.0]
+    },
+    {
+      "partNumber": "08",
+      "officialName": "Antistatic Conveyor Belt (DIN 22104)",
+      "meshNodeName": "Belt_Strand_UpLeg",
+      "section": "CONVEYING ASSEMBLY",
+      "description": "Multi-ply polyester/polyamide fabric core with synthetic rubber cover meeting DIN 22104 standards to eliminate electrostatic spark risks in flour and grain milling zones.",
+      "feedFlowDirection": "Upward Linear Elevation (2.80 m/s nominal speed)",
+      "safetyNotice": "Never adjust belt tracking or tension while operating. Electrical continuity and antistatic conductivity must be verified quarterly.",
+      "hazardDecal": "CAUTION: HIGH-SPEED CONVEYING BELT (2.80 M/S)",
+      "engineeringTolerance": "Surface resistivity < 3 x 10^8 ohms (DIN 22104). Tensile safety factor 10:1 against full bucket stall load.",
+      "anchorPosition": [-0.1955, 5.20, 0.14],
+      "boundsCenter": [-0.1955, 4.925, 0.0]
+    },
+    {
+      "partNumber": "09",
+      "officialName": "Deep High-Capacity Buckets (300 mm Pitch)",
+      "meshNodeName": "Bucket_UpLeg_01",
+      "section": "CONVEYING ASSEMBLY",
+      "description": "Deep polymer/pressed steel buckets spaced at verified 300 mm (0.30 m) pitch along the 18.3 m loop, engineered for clean centrifugal discharge of wheat and maize.",
+      "feedFlowDirection": "Continuous Vertical Stock Elevation",
+      "safetyNotice": "Inspect bucket fastening bolts regularly. Detached buckets tumbling down trunking represent catastrophic mechanical collision hazard.",
+      "hazardDecal": "WARNING: INSTANCED SCOOPING ELEVATOR BUCKETS",
+      "engineeringTolerance": "Pitch: 300 mm (+/- 2 mm). Grade 5 fanged elevator bolts torqued with self-locking serrated flange nuts.",
+      "anchorPosition": [-0.35, 0.82, 0.14],
+      "boundsCenter": [-0.2605, 0.80, 0.0]
+    },
+    {
+      "partNumber": "10",
+      "officialName": "Floor Rotation & Tie Frame",
+      "meshNodeName": "Rotation_Frame_Tie_Brace",
+      "section": "STRUCTURAL TIES",
+      "description": "Structural steel tie frame bracing the dual elevator legs to intermediate mill floor concrete slabs at approximately Z = 5.0 m elevation to absorb lateral operational vibration.",
+      "feedFlowDirection": "Structural Load Transfer to Mill Building Framework",
+      "safetyNotice": "Ensure floor penetration fire stop seals and perimeter kickplates are maintained according to mill building safety codes.",
+      "hazardDecal": "NOTICE: MILL BUILDING LATERAL TIE STRUCTURE",
+      "engineeringTolerance": "Deflection limit < L/500 under full grain conveying harmonic load. High-tensile anchor studs.",
+      "anchorPosition": [0.0, 5.08, 0.22],
+      "boundsCenter": [0.0, 5.0, 0.0]
+    },
+    {
+      "partNumber": "11",
+      "officialName": "Twin Screw Take-Up Tensioner",
+      "meshNodeName": "Boot_TakeUp_Screw_L",
+      "section": "BOOT & TENSIONING",
+      "description": "Sliding bearing blocks adjusted via twin vertical threaded rods on either side of the boot casing, providing precise belt tensioning and true tracking alignment.",
+      "feedFlowDirection": "Tension Adjustment Axis (Vertical Boot Travel)",
+      "safetyNotice": "Equal turns on left and right screws are mandatory to prevent belt skew and edge fraying. Tension only under locked-out conditions.",
+      "hazardDecal": "CAUTION: SLIDING TAKE-UP BEARING MECHANISM",
+      "engineeringTolerance": "Twin screw pitch match within 1/16\" (1.58 mm) across left and right sides. Minimum take-up reserve travel: 150 mm.",
+      "anchorPosition": [0.08, 0.47, 0.20],
+      "boundsCenter": [0.0, 0.47, 0.16]
+    },
+    {
+      "partNumber": "12",
+      "officialName": "Boot Feed Spout (Down-Leg Infeed)",
+      "meshNodeName": "Boot_Feed_Spout_Intake",
+      "section": "BOOT & TENSIONING",
+      "description": "Inlet feed spout directing incoming grain flow. Industry engineering rule: Material feed must enter strictly above pulley centreline on the up-leg to prevent bucket dredging and excessive boot wear.",
+      "feedFlowDirection": "Inward Gravity Grain Infeed (Strictly Above Pulley Centreline)",
+      "safetyNotice": "Inlet chute slide gate must be mechanically isolated prior to clearing any choke or entering boot area.",
+      "hazardDecal": "CRITICAL RULE: FEED MUST ENTER ABOVE PULLEY CL ON UP-LEG",
+      "engineeringTolerance": "Feed entry elevation > Z_boot_pulley + 50 mm (strictly above pulley center line on up-leg). Spout angle 38° min self-clearing slope.",
+      "anchorPosition": [0.48, 0.58, 0.16],
+      "boundsCenter": [0.42, 0.55, 0.0]
+    },
+    {
+      "partNumber": "13",
+      "officialName": "Tool-Operated Cleanout Doors",
+      "meshNodeName": "Boot_Cleanout_Door_Front",
+      "section": "SAFETY & MAINTENANCE",
+      "description": "Heavy-duty inspection and cleanout access hatches secured with tool-operated fasteners for safely clearing boot chokes following full OSHA/ISO LOTO procedures.",
+      "feedFlowDirection": "Sump Cleanout & Emergency Discharge Axis",
+      "safetyNotice": "CRITICAL: Never insert hands or arms to clear chokes. Use wooden or cane clearing rods only after full 11-step LOTO and belt clamping to avoid entrapment.",
+      "hazardDecal": "DANGER: SEVERE AMPUTATION HAZARD - TOOL LATCH ONLY",
+      "engineeringTolerance": "Captive tool-operated fastener bolts. Food-grade neoprene sponge dust seal gasket (IP65 dust rating).",
+      "anchorPosition": [0.0, 0.36, 0.22],
+      "boundsCenter": [0.0, 0.35, 0.175]
+    }
+  ]
+}

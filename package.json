@@ -1,0 +1,23 @@
+{
+  "name": "sagma-webxr-pilot",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "dev:xr": "vite --host 0.0.0.0 --port 5173",
+    "dev:https": "vite --host 0.0.0.0 --port 5173 --https",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "lucide-react": "^1.55.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "three": "^0.174.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-basic-ssl": "^1.2.0",
+    "vite": "^6.2.0"
+  }
+}
