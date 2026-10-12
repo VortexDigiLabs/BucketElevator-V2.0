@@ -2075,3 +2075,38 @@ svg { flex-shrink: 0; }
   font-weight: 700;
   box-shadow: 0 2px 6px rgba(0, 90, 54, 0.2);
 }
+
+
+/* Key tags matching Diagram 4(a) */
+.part-key-tag {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--brand-green);
+  background: var(--brand-green-tint);
+  padding: 1px 5px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 90, 54, 0.2);
+  display: inline-block;
+}
+.hud-banner-key {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--brand-green);
+  background: #ffffff;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 5px;
+  border: 1px solid rgba(0, 90, 54, 0.25);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.drawing-key-tag {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--brand-green);
+  background: var(--brand-green-tint);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  border: 1px solid rgba(0, 90, 54, 0.2);
+  display: inline-block;
+}

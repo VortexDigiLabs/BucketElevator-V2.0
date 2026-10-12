@@ -378,10 +378,14 @@ class ElevatorViewer {
       hudItem.id = `hud-pin-${part.partNumber}`;
       hudItem.dataset.part = part.partNumber;
 
+      const keySuffix = (this.activeMachine === 'satake_vbf' && part.drawingKey)
+        ? ` <span class="hud-banner-key">${part.drawingKey}</span>`
+        : '';
+
       hudItem.innerHTML = `
         <div class="hud-capsule-banner" title="Inspect ${localized.name || part.officialName}">
           <span class="hud-pill-badge">${part.partNumber}</span>
-          <span class="hud-banner-title">${localized.name || part.officialName}</span>
+          <span class="hud-banner-title">${localized.name || part.officialName}${keySuffix}</span>
         </div>
         <div class="hud-leader-line"></div>
         <div class="hud-anchor-ring">
@@ -504,35 +508,45 @@ class ElevatorViewer {
     const modalFleet = document.getElementById('fleet-modal');
     if (modalFleet) modalFleet.style.display = 'none';
 
+    const eyebrow = document.getElementById('components-eyebrow') || document.querySelector('.panel-eyebrow');
+    const sub = document.getElementById('components-sub') || document.querySelector('.panel-sub');
+
     if (machineId === 'satake_vbf') {
-      // 1. Set active manifest & 12 parts
+      // 1. Set active manifest & 10 parts
       this.activeManifest = this.satakeAnatomy;
       this.activeParts = this.normalizeParts(this.satakeAnatomy.parts);
+      this.exploredParts.clear();
 
-      // 2. Update Header Chip and Title
+      // 2. Update Header Chip, Left Panel Eyebrow and Subtitle
       const chip = document.getElementById('brand-sub-txt');
-      if (chip) chip.textContent = 'Satake VBF Degermer - Live';
+      if (chip) chip.textContent = 'Satake VBF Maize Degermer (Diagram 3 & 4a)';
+
+      if (eyebrow) eyebrow.textContent = 'SATAKE VBF DEGERMER (DIAGRAM 3 & 4a)';
+      if (sub) sub.textContent = `${this.activeParts.length} registered nodes`;
 
       const readoutsEl = document.querySelector('.machine-readouts');
       if (readoutsEl) {
         readoutsEl.innerHTML = `
-          <span class="readout-item"><strong id="readout-speed">0.0</strong> RPM</span>
+          <span class="readout-item"><strong id="readout-speed">465.0</strong> RPM</span>
           <span class="readout-sep">&bull;</span>
-          <span class="readout-item"><strong id="readout-rpm">0.0</strong> A (CCU)</span>
+          <span class="readout-item"><strong id="readout-rpm">65.0</strong> A (CCU)</span>
           <span class="readout-sep">&bull;</span>
-          <span class="readout-item"><strong id="readout-tonnage">0.0</strong> t/h</span>
+          <span class="readout-item"><strong id="readout-tonnage">4.5</strong> t/h</span>
         `;
       }
+      this.nominalRPM = 465.0;
+      this.nominalAmps = 65.0;
+      this.nominalTonnage = 4.5;
 
       // 3. Reframe camera to 1.85 m vertical envelope (target [0, 0.95, 0])
-      this.defaultCamPos.set(2.3, 1.4, 2.6);
+      this.defaultCamPos.set(2.4, 1.4, 2.7);
       this.defaultLookPos.set(0, 0.95, 0);
       this.dollyCameraTo(this.defaultCamPos, this.defaultLookPos);
 
       // 4. Load Satake 3D model
       this.loadSatakeModel();
 
-      // 5. Wire 12 HUD Banners, Specs, and LOTO Advisories
+      // 5. Wire 10 HUD Banners, Specs, and LOTO Advisories
       this.populatePartsList();
       this.setupFloatingHUD();
       this.populateElevatorScheduleTable();
@@ -543,25 +557,32 @@ class ElevatorViewer {
         this.selectPart(this.activeParts[0]);
       }
 
-      this.showToast('Active Machine: Satake VBF Vertical Maize Degermer (Module 4) — 12 Nodes Loaded', 'success');
+      this.showToast('Active Machine: Satake VBF Vertical Maize Degermer (Diagram 3 & 4a) • 10 Nodes Loaded', 'success');
     } else {
       // 1. Bucket Elevator
       this.activeManifest = this.elevatorAnatomy;
       this.activeParts = this.normalizeParts(this.elevatorAnatomy.parts);
+      this.exploredParts.clear();
 
       const chip = document.getElementById('brand-sub-txt');
       if (chip) chip.textContent = 'Diagram 69(b) - Live';
 
+      if (eyebrow) eyebrow.textContent = 'DIAGRAM 69(B)';
+      if (sub) sub.textContent = `${this.activeParts.length} registered nodes`;
+
       const readoutsEl = document.querySelector('.machine-readouts');
       if (readoutsEl) {
         readoutsEl.innerHTML = `
-          <span class="readout-item"><strong id="readout-speed">0.00</strong> m/s</span>
+          <span class="readout-item"><strong id="readout-speed">2.80</strong> m/s</span>
           <span class="readout-sep">&bull;</span>
-          <span class="readout-item"><strong id="readout-rpm">0.0</strong> RPM</span>
+          <span class="readout-item"><strong id="readout-rpm">136.8</strong> RPM</span>
           <span class="readout-sep">&bull;</span>
-          <span class="readout-item"><strong id="readout-tonnage">0.0</strong> t/h</span>
+          <span class="readout-item"><strong id="readout-tonnage">78.5</strong> t/h</span>
         `;
       }
+      this.nominalRPM = 136.8;
+      this.nominalBeltSpeed = 2.80;
+      this.nominalTonnage = 78.5;
 
       this.defaultCamPos.set(5.6, 5.2, 7.8);
       this.defaultLookPos.set(0, 4.8, 0);
@@ -579,7 +600,7 @@ class ElevatorViewer {
         this.selectPart(this.activeParts[0]);
       }
 
-      this.showToast('Active Machine: Diagram 69(b) Bucket Elevator (Module 2) — 13 Nodes Loaded', 'success');
+      this.showToast('Active Machine: Diagram 69(b) Bucket Elevator (Module 2) • 13 Nodes Loaded', 'success');
     }
   }
 
@@ -1243,12 +1264,17 @@ class ElevatorViewer {
   }
 
   highlightMeshNode(activeNode) {
+    const targetMeshes = new Set();
+    if (activeNode) {
+      activeNode.traverse((c) => {
+        if (c && c.isMesh) targetMeshes.add(c);
+      });
+    }
+
     this.model.traverse((child) => {
       if (child && child.isMesh) {
         const origMat = this.originalMaterials.get(child);
-        const isMatch = (child === activeNode || child.name === activeNode.name ||
-                         (child.parent && child.parent === activeNode) ||
-                         (child.parent && child.parent.name === activeNode.name));
+        const isMatch = targetMeshes.has(child);
         if (isMatch) {
           const glowMat = (origMat && !Array.isArray(origMat)) ? origMat.clone() : new THREE.MeshStandardMaterial();
           glowMat.color = new THREE.Color(0x005A36);
@@ -1545,11 +1571,15 @@ class ElevatorViewer {
       item.id = `part-item-${part.partNumber}`;
       item.dataset.part = part.partNumber;
 
+      const keyTag = (this.activeMachine === 'satake_vbf' && part.drawingKey)
+        ? `<span class="part-key-tag">${part.drawingKey}</span> • `
+        : '';
+
       item.innerHTML = `
         <span class="part-badge">${part.partNumber}</span>
         <div class="part-card-text">
           <span class="part-card-name">${localized.name || part.officialName}</span>
-          <span class="part-card-sub">${localized.section || part.section}</span>
+          <span class="part-card-sub">${keyTag}${localized.section || part.section}</span>
         </div>
       `;
 
@@ -1982,15 +2012,16 @@ class ElevatorViewer {
 
     parts.forEach((part) => {
       const row = document.createElement('tr');
+      const drawingTag = part.drawingKey ? `<span class="drawing-key-tag">${part.drawingKey}</span>` : '';
       row.innerHTML = `
-        <td><span class="part-tag-pill">${part.id}</span></td>
-        <td><strong>${part.name}</strong></td>
-        <td>${part.category}</td>
-        <td>${part.feed}</td>
-        <td>${part.tolerance}</td>
+        <td><span class="part-tag-pill">${part.id || part.partNumber}</span></td>
+        <td><strong>${part.name || part.officialName}</strong> ${drawingTag}</td>
+        <td>${part.category || part.section}</td>
+        <td>${part.feed || part.feedFlowDirection}</td>
+        <td>${part.tolerance || part.engineeringTolerance}</td>
       `;
       row.style.cursor = 'pointer';
-      row.title = `Click to inspect ${part.name} in 3D simulator`;
+      row.title = `Click to inspect ${part.name || part.officialName} in 3D simulator`;
       row.addEventListener('click', () => {
         const modal = document.getElementById('library-modal');
         if (modal) modal.style.display = 'none';
@@ -1999,7 +2030,7 @@ class ElevatorViewer {
           this.switchMachineProfile('satake_vbf');
         }
 
-        const normalized = this.activeParts.find(p => p.partNumber === part.id) || part;
+        const normalized = this.activeParts.find(p => (p.partNumber === part.id || p.partNumber === part.partNumber)) || part;
         this.selectPart(normalized);
       });
       tbody.appendChild(row);
@@ -2095,15 +2126,16 @@ class ElevatorViewer {
     const elDecal = document.getElementById('decal-text');
     const elTolShort = document.getElementById('tel-tolerance-short');
 
-    if (elTag) elTag.textContent = part.partNumber;
+    if (elTag) elTag.textContent = (this.activeMachine === 'satake_vbf') ? `Node ${part.partNumber}` : `Part ${part.partNumber}`;
     if (elSection) elSection.textContent = loc.section || part.section;
     if (elTitle) elTitle.textContent = loc.name || part.officialName;
     if (elFlow) elFlow.textContent = loc.flow || part.feedFlowDirection;
-    if (elSafety) elSafety.textContent = loc.safety || part.safetyNotice;
-    if (elSpecs) elSpecs.textContent = loc.specs || part.description;
-    if (elElevation) elElevation.textContent = `Z = ${part.anchorPosition[1].toFixed(2)} m`;
+    if (elSafety) elSafety.textContent = loc.safety || part.safetyNotice || part.safety;
+    if (elSpecs) elSpecs.textContent = loc.specs || part.specs || part.description;
+    const yVal = (part.anchorPosition && part.anchorPosition[1] !== undefined) ? part.anchorPosition[1] : (part.anchor ? part.anchor[1] : 1.0);
+    if (elElevation) elElevation.textContent = `Z = ${yVal.toFixed(2)} m`;
     if (elDecal) elDecal.textContent = loc.decal || part.hazardDecal;
-    if (elTolShort) elTolShort.textContent = (loc.tolerance || part.engineeringTolerance).split('.')[0];
+    if (elTolShort) elTolShort.textContent = (loc.tolerance || part.engineeringTolerance || part.tolerance || '').split('.')[0];
   }
 
   updatePartsDrawerUI(activePartNumber) {

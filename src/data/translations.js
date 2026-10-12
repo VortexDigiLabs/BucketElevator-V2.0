@@ -194,6 +194,106 @@ export const TRANSLATIONS = {
         "tolerance": "Captive tool-operated fastener bolts. Food-grade neoprene sponge dust seal gasket (IP65 dust rating).",
         "decal": "DANGER: SEVERE AMPUTATION HAZARD - TOOL LATCH ONLY",
         "caption": "Diagram 69(b): Bolted cleanout access doors for safe millwright boot de-choking."
+      },
+      "2.1": {
+        "name": "Grain Feed Inlet & Permanent Magnet",
+        "section": "INLET & FEED ASSEMBLY",
+        "flow": "Conditioned whole maize inlet via gravity chute",
+        "safety": "Inspect magnet face at every shift stop. Never use bare hands to remove metal splinters to prevent severe lacerations.",
+        "specs": "Feed capacity 2.0–7.0 t/h (VBF 5A: 2–3 t/h; VBF 7B: 3–4 t/h; VBF 10A: 4–7 t/h); high-intensity permanent plate/drum magnet.",
+        "tolerance": "Rare-earth magnetic trap rated >10,000 Gauss. Plate clearance 25 mm.",
+        "decal": "CAUTION: RARE-EARTH MAGNET - PINCH & CUT HAZARD",
+        "caption": "Diagram 4(a) 4. Inlet: Grain Feed Inlet & Permanent Magnet"
+      },
+      "2.2": {
+        "name": "Motorized Inlet Screw Feeder & Compact Clutch",
+        "section": "INLET & FEED ASSEMBLY",
+        "flow": "Horizontal metered feed into lower housing",
+        "safety": "Electrically interlocked with main motor ammeter load; automatically halts feed upon current overload spikes.",
+        "specs": "Independent motorized variable-speed scroll drive; compact single-unit scroll design.",
+        "tolerance": "Variable flight pitch 65 mm. Radial barrel flight clearance: 2.0 mm (+/- 0.5 mm).",
+        "decal": "WARNING: AUTOMATIC AUGER ROTATION - KEEP CLEAR",
+        "caption": "Diagram 4(a) 5. Inlet screw feeder: Motorized Inlet Screw Feeder & Compact Clutch"
+      },
+      "2.3": {
+        "name": "Vertical Distribution Scroll",
+        "section": "ROTOR & SCOURING CHAMBER",
+        "flow": "Vertical upward propulsion into scouring chamber",
+        "safety": "Lock-Out / Tag-Out (LOTO) mandatory before manual cleanout of lower scroll intake cavity.",
+        "specs": "Heavy-duty cast-iron vertical spiral scroll attached to the lower rotor shaft.",
+        "tolerance": "Spiral flight lead angle: 18 deg. Bottom throat radial clearance: 3.5 mm nominal.",
+        "decal": "DANGER: CONFINED ROTATING SPIRAL PINCH ZONE",
+        "caption": "Diagram 4(a) 8. Distribution scroll: Vertical Distribution Scroll"
+      },
+      "2.4": {
+        "name": "Cylindrical Steel Rotor (Split Segment Design)",
+        "section": "ROTOR & DRIVE KINEMATICS",
+        "flow": "Intense kernel-to-kernel friction zone @ 465 RPM",
+        "safety": "Lock-Out / Tag-Out (LOTO) mandatory before opening access panels; contact with the revolving rotor causes severe injury.",
+        "specs": "Smooth cylindrical steel rotor operating at 465 RPM; split segment design (dismantles into two halves for maintenance).",
+        "tolerance": "Rotor dynamic balance tolerance: < 2.5 g mm/kg. Operating velocity: 465 RPM (+/- 5 RPM).",
+        "decal": "DANGER: HIGH-TORQUE ROTATING CYLINDER - LOTO MANDATORY",
+        "caption": "Diagram 4(a) 2. Steel rotor: Cylindrical Steel Rotor (Split Segment Design)"
+      },
+      "2.5": {
+        "name": "Detachable Steel Beater Bars (Qty 2)",
+        "section": "ROTOR & SCOURING CHAMBER",
+        "flow": "Radial grain agitation and tumbling across screens",
+        "safety": "Verify beater bar mounting bolt torque (85 Nm) and check for edge wear before closing screen housing.",
+        "specs": "Two hardened-steel, rigid impact/agitator bars mounted on opposite sides of the rotor.",
+        "tolerance": "Dual-opposed mounting at 180 deg. Radial tip-to-screen clearance: 11.0 mm (+/- 1.0 mm).",
+        "decal": "CAUTION: HARDENED IMPACT BARS - CHECK BOLT TORQUE",
+        "caption": "Diagram 4(a) 2. Steel rotor / Beaters: Detachable Steel Beater Bars (Qty 2)"
+      },
+      "2.6": {
+        "name": "Multifaceted Slotted Screen Cartridge & Rib Cage",
+        "section": "SCREEN ASSEMBLY",
+        "flow": "Pericarp (bran) and germ offal aspiration exit",
+        "safety": "Inspect screen apertures regularly for foreign object damage or wear. Use protective gloves to handle sharp edges.",
+        "specs": "8 multifaceted vertical slotted screen panels enclosed in a heavy-gauge steel rib cage and outer clamping frames.",
+        "tolerance": "8-segment polygonal cage. Slotted aperture width: 1.0 mm x 12.0 mm (calibrated for maize).",
+        "decal": "CAUTION: PRECISION SLOTTED SEPARATION SURFACE",
+        "caption": "Diagram 4(a) 3. Slotted screen: Multifaceted Slotted Screen Cartridge & Rib Cage"
+      },
+      "2.7": {
+        "name": "Independently Adjustable Resistance Bars",
+        "section": "RETARDATION & PRESSURE CONTROL",
+        "flow": "Swirl retardation and friction intensification",
+        "safety": "Adjust resistance bolts evenly across all quadrants to prevent uneven screen barrel pressure.",
+        "specs": "Rigid alloy resistance bars mounted inside the screen jacket with external adjusting bolts.",
+        "tolerance": "External adjusting screw travel: 0–15 mm protrusion into grain stream.",
+        "decal": "CAUTION: HIGH RETARDATION PRESSURE ADJUSTMENT",
+        "caption": "Diagram 4(a) Resistance bars: Independently Adjustable Resistance Bars"
+      },
+      "2.8": {
+        "name": "Overtails Discharge Chute & Weighted Retention Flap",
+        "section": "DISCHARGE CONTROL",
+        "flow": "Degermed samp & endosperm discharge stream",
+        "safety": "Keep hands clear of discharge flap mechanism during automatic CCU modulation.",
+        "specs": "Counter-weighted hinged discharge gate with optional CCU Auto-Weight control module.",
+        "tolerance": "Flap counterweight moment arm: 250 mm. Gate seal clearance: 1.5 mm neoprene cushion.",
+        "decal": "WARNING: AUTOMATIC PRESSURE FLAP PINCH POINT",
+        "caption": "Diagram 4(a) 9. Outlet & 10. Outlet flap gate: Overtails Discharge Chute & Weighted Retention Flap"
+      },
+      "2.9": {
+        "name": "Air Induction Fan & Central Hollow Rotor Duct",
+        "section": "ASPIRATION & AIR SYSTEM",
+        "flow": "Forced internal cooling air injection through rotor slots",
+        "safety": "Verify negative pressure airflow before starting feed to prevent dust accumulation and overheating.",
+        "specs": "Central hollow drive shaft with air discharge slots located directly behind each beater bar; negative pressure pneumatic exhaust ducting.",
+        "tolerance": "Air volume required: 30–45 m3/min @ 120–150 mm WG static negative pressure.",
+        "decal": "CAUTION: PNEUMATIC AIR FLOW - ROTATING IMPELLER",
+        "caption": "Diagram 4(a) 1. Induction air fan & 7. Exhaust duct: Air Induction Fan & Central Hollow Rotor Duct"
+      },
+      "2.10": {
+        "name": "Machine Base Frame & 75 kW Main Belt Drive",
+        "section": "BASE & DRIVE KINEMATICS",
+        "flow": "Torque transmission to vertical rotor shaft @ 465 RPM",
+        "safety": "V-belt guards must remain securely bolted at all times during operation.",
+        "specs": "Bottom-mounted 75 kW electric motor (3-Phase, 50 Hz); multi-V-belt drive with heavy protective guard enclosure.",
+        "tolerance": "Motor: 75 kW, 1,480 RPM nominal. Multi V-belt reduction ratio: 3.18:1 (output 465 RPM).",
+        "decal": "DANGER: HIGH-POWER 75 kW BELT DRIVE - GUARDS MANDATORY",
+        "caption": "Diagram 4(a) 6. Main drive: Machine Base Frame & 75 kW Main Belt Drive"
       }
     }
   },
@@ -392,6 +492,106 @@ export const TRANSLATIONS = {
         "tolerance": "Boulonnerie captive actionnée par outil. Joint d'étanchéité néoprène cellulaire qualité alimentaire IP65.",
         "decal": "DANGER D'AMPUTATION : OUVERTURE À OUTIL EXCLUSIVEMENT",
         "caption": "Schéma 69(b) : Portes de nettoyage boulonnées pour débourrage sécurisé."
+      },
+      "2.1": {
+        "name": "Grain Feed Inlet & Permanent Magnet",
+        "section": "INLET & FEED ASSEMBLY",
+        "flow": "Conditioned whole maize inlet via gravity chute",
+        "safety": "Inspect magnet face at every shift stop. Never use bare hands to remove metal splinters to prevent severe lacerations.",
+        "specs": "Feed capacity 2.0–7.0 t/h (VBF 5A: 2–3 t/h; VBF 7B: 3–4 t/h; VBF 10A: 4–7 t/h); high-intensity permanent plate/drum magnet.",
+        "tolerance": "Rare-earth magnetic trap rated >10,000 Gauss. Plate clearance 25 mm.",
+        "decal": "CAUTION: RARE-EARTH MAGNET - PINCH & CUT HAZARD",
+        "caption": "Diagram 4(a) 4. Inlet: Grain Feed Inlet & Permanent Magnet"
+      },
+      "2.2": {
+        "name": "Motorized Inlet Screw Feeder & Compact Clutch",
+        "section": "INLET & FEED ASSEMBLY",
+        "flow": "Horizontal metered feed into lower housing",
+        "safety": "Electrically interlocked with main motor ammeter load; automatically halts feed upon current overload spikes.",
+        "specs": "Independent motorized variable-speed scroll drive; compact single-unit scroll design.",
+        "tolerance": "Variable flight pitch 65 mm. Radial barrel flight clearance: 2.0 mm (+/- 0.5 mm).",
+        "decal": "WARNING: AUTOMATIC AUGER ROTATION - KEEP CLEAR",
+        "caption": "Diagram 4(a) 5. Inlet screw feeder: Motorized Inlet Screw Feeder & Compact Clutch"
+      },
+      "2.3": {
+        "name": "Vertical Distribution Scroll",
+        "section": "ROTOR & SCOURING CHAMBER",
+        "flow": "Vertical upward propulsion into scouring chamber",
+        "safety": "Lock-Out / Tag-Out (LOTO) mandatory before manual cleanout of lower scroll intake cavity.",
+        "specs": "Heavy-duty cast-iron vertical spiral scroll attached to the lower rotor shaft.",
+        "tolerance": "Spiral flight lead angle: 18 deg. Bottom throat radial clearance: 3.5 mm nominal.",
+        "decal": "DANGER: CONFINED ROTATING SPIRAL PINCH ZONE",
+        "caption": "Diagram 4(a) 8. Distribution scroll: Vertical Distribution Scroll"
+      },
+      "2.4": {
+        "name": "Cylindrical Steel Rotor (Split Segment Design)",
+        "section": "ROTOR & DRIVE KINEMATICS",
+        "flow": "Intense kernel-to-kernel friction zone @ 465 RPM",
+        "safety": "Lock-Out / Tag-Out (LOTO) mandatory before opening access panels; contact with the revolving rotor causes severe injury.",
+        "specs": "Smooth cylindrical steel rotor operating at 465 RPM; split segment design (dismantles into two halves for maintenance).",
+        "tolerance": "Rotor dynamic balance tolerance: < 2.5 g mm/kg. Operating velocity: 465 RPM (+/- 5 RPM).",
+        "decal": "DANGER: HIGH-TORQUE ROTATING CYLINDER - LOTO MANDATORY",
+        "caption": "Diagram 4(a) 2. Steel rotor: Cylindrical Steel Rotor (Split Segment Design)"
+      },
+      "2.5": {
+        "name": "Detachable Steel Beater Bars (Qty 2)",
+        "section": "ROTOR & SCOURING CHAMBER",
+        "flow": "Radial grain agitation and tumbling across screens",
+        "safety": "Verify beater bar mounting bolt torque (85 Nm) and check for edge wear before closing screen housing.",
+        "specs": "Two hardened-steel, rigid impact/agitator bars mounted on opposite sides of the rotor.",
+        "tolerance": "Dual-opposed mounting at 180 deg. Radial tip-to-screen clearance: 11.0 mm (+/- 1.0 mm).",
+        "decal": "CAUTION: HARDENED IMPACT BARS - CHECK BOLT TORQUE",
+        "caption": "Diagram 4(a) 2. Steel rotor / Beaters: Detachable Steel Beater Bars (Qty 2)"
+      },
+      "2.6": {
+        "name": "Multifaceted Slotted Screen Cartridge & Rib Cage",
+        "section": "SCREEN ASSEMBLY",
+        "flow": "Pericarp (bran) and germ offal aspiration exit",
+        "safety": "Inspect screen apertures regularly for foreign object damage or wear. Use protective gloves to handle sharp edges.",
+        "specs": "8 multifaceted vertical slotted screen panels enclosed in a heavy-gauge steel rib cage and outer clamping frames.",
+        "tolerance": "8-segment polygonal cage. Slotted aperture width: 1.0 mm x 12.0 mm (calibrated for maize).",
+        "decal": "CAUTION: PRECISION SLOTTED SEPARATION SURFACE",
+        "caption": "Diagram 4(a) 3. Slotted screen: Multifaceted Slotted Screen Cartridge & Rib Cage"
+      },
+      "2.7": {
+        "name": "Independently Adjustable Resistance Bars",
+        "section": "RETARDATION & PRESSURE CONTROL",
+        "flow": "Swirl retardation and friction intensification",
+        "safety": "Adjust resistance bolts evenly across all quadrants to prevent uneven screen barrel pressure.",
+        "specs": "Rigid alloy resistance bars mounted inside the screen jacket with external adjusting bolts.",
+        "tolerance": "External adjusting screw travel: 0–15 mm protrusion into grain stream.",
+        "decal": "CAUTION: HIGH RETARDATION PRESSURE ADJUSTMENT",
+        "caption": "Diagram 4(a) Resistance bars: Independently Adjustable Resistance Bars"
+      },
+      "2.8": {
+        "name": "Overtails Discharge Chute & Weighted Retention Flap",
+        "section": "DISCHARGE CONTROL",
+        "flow": "Degermed samp & endosperm discharge stream",
+        "safety": "Keep hands clear of discharge flap mechanism during automatic CCU modulation.",
+        "specs": "Counter-weighted hinged discharge gate with optional CCU Auto-Weight control module.",
+        "tolerance": "Flap counterweight moment arm: 250 mm. Gate seal clearance: 1.5 mm neoprene cushion.",
+        "decal": "WARNING: AUTOMATIC PRESSURE FLAP PINCH POINT",
+        "caption": "Diagram 4(a) 9. Outlet & 10. Outlet flap gate: Overtails Discharge Chute & Weighted Retention Flap"
+      },
+      "2.9": {
+        "name": "Air Induction Fan & Central Hollow Rotor Duct",
+        "section": "ASPIRATION & AIR SYSTEM",
+        "flow": "Forced internal cooling air injection through rotor slots",
+        "safety": "Verify negative pressure airflow before starting feed to prevent dust accumulation and overheating.",
+        "specs": "Central hollow drive shaft with air discharge slots located directly behind each beater bar; negative pressure pneumatic exhaust ducting.",
+        "tolerance": "Air volume required: 30–45 m3/min @ 120–150 mm WG static negative pressure.",
+        "decal": "CAUTION: PNEUMATIC AIR FLOW - ROTATING IMPELLER",
+        "caption": "Diagram 4(a) 1. Induction air fan & 7. Exhaust duct: Air Induction Fan & Central Hollow Rotor Duct"
+      },
+      "2.10": {
+        "name": "Machine Base Frame & 75 kW Main Belt Drive",
+        "section": "BASE & DRIVE KINEMATICS",
+        "flow": "Torque transmission to vertical rotor shaft @ 465 RPM",
+        "safety": "V-belt guards must remain securely bolted at all times during operation.",
+        "specs": "Bottom-mounted 75 kW electric motor (3-Phase, 50 Hz); multi-V-belt drive with heavy protective guard enclosure.",
+        "tolerance": "Motor: 75 kW, 1,480 RPM nominal. Multi V-belt reduction ratio: 3.18:1 (output 465 RPM).",
+        "decal": "DANGER: HIGH-POWER 75 kW BELT DRIVE - GUARDS MANDATORY",
+        "caption": "Diagram 4(a) 6. Main drive: Machine Base Frame & 75 kW Main Belt Drive"
       }
     }
   },
@@ -590,6 +790,106 @@ export const TRANSLATIONS = {
         "tolerance": "Tornillos cautivos con llave. Junta de neopreno celular grado alimentario IP65.",
         "decal": "PELIGRO DE AMPUTACIÓN: APERTURA EXCLUSIVA CON HERRAMIENTA",
         "caption": "Diagrama 69(b): Puertas atornilladas de limpieza para desatasco seguro de bota."
+      },
+      "2.1": {
+        "name": "Grain Feed Inlet & Permanent Magnet",
+        "section": "INLET & FEED ASSEMBLY",
+        "flow": "Conditioned whole maize inlet via gravity chute",
+        "safety": "Inspect magnet face at every shift stop. Never use bare hands to remove metal splinters to prevent severe lacerations.",
+        "specs": "Feed capacity 2.0–7.0 t/h (VBF 5A: 2–3 t/h; VBF 7B: 3–4 t/h; VBF 10A: 4–7 t/h); high-intensity permanent plate/drum magnet.",
+        "tolerance": "Rare-earth magnetic trap rated >10,000 Gauss. Plate clearance 25 mm.",
+        "decal": "CAUTION: RARE-EARTH MAGNET - PINCH & CUT HAZARD",
+        "caption": "Diagram 4(a) 4. Inlet: Grain Feed Inlet & Permanent Magnet"
+      },
+      "2.2": {
+        "name": "Motorized Inlet Screw Feeder & Compact Clutch",
+        "section": "INLET & FEED ASSEMBLY",
+        "flow": "Horizontal metered feed into lower housing",
+        "safety": "Electrically interlocked with main motor ammeter load; automatically halts feed upon current overload spikes.",
+        "specs": "Independent motorized variable-speed scroll drive; compact single-unit scroll design.",
+        "tolerance": "Variable flight pitch 65 mm. Radial barrel flight clearance: 2.0 mm (+/- 0.5 mm).",
+        "decal": "WARNING: AUTOMATIC AUGER ROTATION - KEEP CLEAR",
+        "caption": "Diagram 4(a) 5. Inlet screw feeder: Motorized Inlet Screw Feeder & Compact Clutch"
+      },
+      "2.3": {
+        "name": "Vertical Distribution Scroll",
+        "section": "ROTOR & SCOURING CHAMBER",
+        "flow": "Vertical upward propulsion into scouring chamber",
+        "safety": "Lock-Out / Tag-Out (LOTO) mandatory before manual cleanout of lower scroll intake cavity.",
+        "specs": "Heavy-duty cast-iron vertical spiral scroll attached to the lower rotor shaft.",
+        "tolerance": "Spiral flight lead angle: 18 deg. Bottom throat radial clearance: 3.5 mm nominal.",
+        "decal": "DANGER: CONFINED ROTATING SPIRAL PINCH ZONE",
+        "caption": "Diagram 4(a) 8. Distribution scroll: Vertical Distribution Scroll"
+      },
+      "2.4": {
+        "name": "Cylindrical Steel Rotor (Split Segment Design)",
+        "section": "ROTOR & DRIVE KINEMATICS",
+        "flow": "Intense kernel-to-kernel friction zone @ 465 RPM",
+        "safety": "Lock-Out / Tag-Out (LOTO) mandatory before opening access panels; contact with the revolving rotor causes severe injury.",
+        "specs": "Smooth cylindrical steel rotor operating at 465 RPM; split segment design (dismantles into two halves for maintenance).",
+        "tolerance": "Rotor dynamic balance tolerance: < 2.5 g mm/kg. Operating velocity: 465 RPM (+/- 5 RPM).",
+        "decal": "DANGER: HIGH-TORQUE ROTATING CYLINDER - LOTO MANDATORY",
+        "caption": "Diagram 4(a) 2. Steel rotor: Cylindrical Steel Rotor (Split Segment Design)"
+      },
+      "2.5": {
+        "name": "Detachable Steel Beater Bars (Qty 2)",
+        "section": "ROTOR & SCOURING CHAMBER",
+        "flow": "Radial grain agitation and tumbling across screens",
+        "safety": "Verify beater bar mounting bolt torque (85 Nm) and check for edge wear before closing screen housing.",
+        "specs": "Two hardened-steel, rigid impact/agitator bars mounted on opposite sides of the rotor.",
+        "tolerance": "Dual-opposed mounting at 180 deg. Radial tip-to-screen clearance: 11.0 mm (+/- 1.0 mm).",
+        "decal": "CAUTION: HARDENED IMPACT BARS - CHECK BOLT TORQUE",
+        "caption": "Diagram 4(a) 2. Steel rotor / Beaters: Detachable Steel Beater Bars (Qty 2)"
+      },
+      "2.6": {
+        "name": "Multifaceted Slotted Screen Cartridge & Rib Cage",
+        "section": "SCREEN ASSEMBLY",
+        "flow": "Pericarp (bran) and germ offal aspiration exit",
+        "safety": "Inspect screen apertures regularly for foreign object damage or wear. Use protective gloves to handle sharp edges.",
+        "specs": "8 multifaceted vertical slotted screen panels enclosed in a heavy-gauge steel rib cage and outer clamping frames.",
+        "tolerance": "8-segment polygonal cage. Slotted aperture width: 1.0 mm x 12.0 mm (calibrated for maize).",
+        "decal": "CAUTION: PRECISION SLOTTED SEPARATION SURFACE",
+        "caption": "Diagram 4(a) 3. Slotted screen: Multifaceted Slotted Screen Cartridge & Rib Cage"
+      },
+      "2.7": {
+        "name": "Independently Adjustable Resistance Bars",
+        "section": "RETARDATION & PRESSURE CONTROL",
+        "flow": "Swirl retardation and friction intensification",
+        "safety": "Adjust resistance bolts evenly across all quadrants to prevent uneven screen barrel pressure.",
+        "specs": "Rigid alloy resistance bars mounted inside the screen jacket with external adjusting bolts.",
+        "tolerance": "External adjusting screw travel: 0–15 mm protrusion into grain stream.",
+        "decal": "CAUTION: HIGH RETARDATION PRESSURE ADJUSTMENT",
+        "caption": "Diagram 4(a) Resistance bars: Independently Adjustable Resistance Bars"
+      },
+      "2.8": {
+        "name": "Overtails Discharge Chute & Weighted Retention Flap",
+        "section": "DISCHARGE CONTROL",
+        "flow": "Degermed samp & endosperm discharge stream",
+        "safety": "Keep hands clear of discharge flap mechanism during automatic CCU modulation.",
+        "specs": "Counter-weighted hinged discharge gate with optional CCU Auto-Weight control module.",
+        "tolerance": "Flap counterweight moment arm: 250 mm. Gate seal clearance: 1.5 mm neoprene cushion.",
+        "decal": "WARNING: AUTOMATIC PRESSURE FLAP PINCH POINT",
+        "caption": "Diagram 4(a) 9. Outlet & 10. Outlet flap gate: Overtails Discharge Chute & Weighted Retention Flap"
+      },
+      "2.9": {
+        "name": "Air Induction Fan & Central Hollow Rotor Duct",
+        "section": "ASPIRATION & AIR SYSTEM",
+        "flow": "Forced internal cooling air injection through rotor slots",
+        "safety": "Verify negative pressure airflow before starting feed to prevent dust accumulation and overheating.",
+        "specs": "Central hollow drive shaft with air discharge slots located directly behind each beater bar; negative pressure pneumatic exhaust ducting.",
+        "tolerance": "Air volume required: 30–45 m3/min @ 120–150 mm WG static negative pressure.",
+        "decal": "CAUTION: PNEUMATIC AIR FLOW - ROTATING IMPELLER",
+        "caption": "Diagram 4(a) 1. Induction air fan & 7. Exhaust duct: Air Induction Fan & Central Hollow Rotor Duct"
+      },
+      "2.10": {
+        "name": "Machine Base Frame & 75 kW Main Belt Drive",
+        "section": "BASE & DRIVE KINEMATICS",
+        "flow": "Torque transmission to vertical rotor shaft @ 465 RPM",
+        "safety": "V-belt guards must remain securely bolted at all times during operation.",
+        "specs": "Bottom-mounted 75 kW electric motor (3-Phase, 50 Hz); multi-V-belt drive with heavy protective guard enclosure.",
+        "tolerance": "Motor: 75 kW, 1,480 RPM nominal. Multi V-belt reduction ratio: 3.18:1 (output 465 RPM).",
+        "decal": "DANGER: HIGH-POWER 75 kW BELT DRIVE - GUARDS MANDATORY",
+        "caption": "Diagram 4(a) 6. Main drive: Machine Base Frame & 75 kW Main Belt Drive"
       }
     }
   },
@@ -788,6 +1088,106 @@ export const TRANSLATIONS = {
         "tolerance": "Parafusos imperdíveis com ferramenta. Vedação de neoprene celular grau alimentício IP65.",
         "decal": "PERIGO DE AMPUTAÇÃO: ABERTURA EXCLUSIVA COM FERRAMENTA",
         "caption": "Diagrama 69(b): Portas aparafusadas para desobstrução segura do pé."
+      },
+      "2.1": {
+        "name": "Grain Feed Inlet & Permanent Magnet",
+        "section": "INLET & FEED ASSEMBLY",
+        "flow": "Conditioned whole maize inlet via gravity chute",
+        "safety": "Inspect magnet face at every shift stop. Never use bare hands to remove metal splinters to prevent severe lacerations.",
+        "specs": "Feed capacity 2.0–7.0 t/h (VBF 5A: 2–3 t/h; VBF 7B: 3–4 t/h; VBF 10A: 4–7 t/h); high-intensity permanent plate/drum magnet.",
+        "tolerance": "Rare-earth magnetic trap rated >10,000 Gauss. Plate clearance 25 mm.",
+        "decal": "CAUTION: RARE-EARTH MAGNET - PINCH & CUT HAZARD",
+        "caption": "Diagram 4(a) 4. Inlet: Grain Feed Inlet & Permanent Magnet"
+      },
+      "2.2": {
+        "name": "Motorized Inlet Screw Feeder & Compact Clutch",
+        "section": "INLET & FEED ASSEMBLY",
+        "flow": "Horizontal metered feed into lower housing",
+        "safety": "Electrically interlocked with main motor ammeter load; automatically halts feed upon current overload spikes.",
+        "specs": "Independent motorized variable-speed scroll drive; compact single-unit scroll design.",
+        "tolerance": "Variable flight pitch 65 mm. Radial barrel flight clearance: 2.0 mm (+/- 0.5 mm).",
+        "decal": "WARNING: AUTOMATIC AUGER ROTATION - KEEP CLEAR",
+        "caption": "Diagram 4(a) 5. Inlet screw feeder: Motorized Inlet Screw Feeder & Compact Clutch"
+      },
+      "2.3": {
+        "name": "Vertical Distribution Scroll",
+        "section": "ROTOR & SCOURING CHAMBER",
+        "flow": "Vertical upward propulsion into scouring chamber",
+        "safety": "Lock-Out / Tag-Out (LOTO) mandatory before manual cleanout of lower scroll intake cavity.",
+        "specs": "Heavy-duty cast-iron vertical spiral scroll attached to the lower rotor shaft.",
+        "tolerance": "Spiral flight lead angle: 18 deg. Bottom throat radial clearance: 3.5 mm nominal.",
+        "decal": "DANGER: CONFINED ROTATING SPIRAL PINCH ZONE",
+        "caption": "Diagram 4(a) 8. Distribution scroll: Vertical Distribution Scroll"
+      },
+      "2.4": {
+        "name": "Cylindrical Steel Rotor (Split Segment Design)",
+        "section": "ROTOR & DRIVE KINEMATICS",
+        "flow": "Intense kernel-to-kernel friction zone @ 465 RPM",
+        "safety": "Lock-Out / Tag-Out (LOTO) mandatory before opening access panels; contact with the revolving rotor causes severe injury.",
+        "specs": "Smooth cylindrical steel rotor operating at 465 RPM; split segment design (dismantles into two halves for maintenance).",
+        "tolerance": "Rotor dynamic balance tolerance: < 2.5 g mm/kg. Operating velocity: 465 RPM (+/- 5 RPM).",
+        "decal": "DANGER: HIGH-TORQUE ROTATING CYLINDER - LOTO MANDATORY",
+        "caption": "Diagram 4(a) 2. Steel rotor: Cylindrical Steel Rotor (Split Segment Design)"
+      },
+      "2.5": {
+        "name": "Detachable Steel Beater Bars (Qty 2)",
+        "section": "ROTOR & SCOURING CHAMBER",
+        "flow": "Radial grain agitation and tumbling across screens",
+        "safety": "Verify beater bar mounting bolt torque (85 Nm) and check for edge wear before closing screen housing.",
+        "specs": "Two hardened-steel, rigid impact/agitator bars mounted on opposite sides of the rotor.",
+        "tolerance": "Dual-opposed mounting at 180 deg. Radial tip-to-screen clearance: 11.0 mm (+/- 1.0 mm).",
+        "decal": "CAUTION: HARDENED IMPACT BARS - CHECK BOLT TORQUE",
+        "caption": "Diagram 4(a) 2. Steel rotor / Beaters: Detachable Steel Beater Bars (Qty 2)"
+      },
+      "2.6": {
+        "name": "Multifaceted Slotted Screen Cartridge & Rib Cage",
+        "section": "SCREEN ASSEMBLY",
+        "flow": "Pericarp (bran) and germ offal aspiration exit",
+        "safety": "Inspect screen apertures regularly for foreign object damage or wear. Use protective gloves to handle sharp edges.",
+        "specs": "8 multifaceted vertical slotted screen panels enclosed in a heavy-gauge steel rib cage and outer clamping frames.",
+        "tolerance": "8-segment polygonal cage. Slotted aperture width: 1.0 mm x 12.0 mm (calibrated for maize).",
+        "decal": "CAUTION: PRECISION SLOTTED SEPARATION SURFACE",
+        "caption": "Diagram 4(a) 3. Slotted screen: Multifaceted Slotted Screen Cartridge & Rib Cage"
+      },
+      "2.7": {
+        "name": "Independently Adjustable Resistance Bars",
+        "section": "RETARDATION & PRESSURE CONTROL",
+        "flow": "Swirl retardation and friction intensification",
+        "safety": "Adjust resistance bolts evenly across all quadrants to prevent uneven screen barrel pressure.",
+        "specs": "Rigid alloy resistance bars mounted inside the screen jacket with external adjusting bolts.",
+        "tolerance": "External adjusting screw travel: 0–15 mm protrusion into grain stream.",
+        "decal": "CAUTION: HIGH RETARDATION PRESSURE ADJUSTMENT",
+        "caption": "Diagram 4(a) Resistance bars: Independently Adjustable Resistance Bars"
+      },
+      "2.8": {
+        "name": "Overtails Discharge Chute & Weighted Retention Flap",
+        "section": "DISCHARGE CONTROL",
+        "flow": "Degermed samp & endosperm discharge stream",
+        "safety": "Keep hands clear of discharge flap mechanism during automatic CCU modulation.",
+        "specs": "Counter-weighted hinged discharge gate with optional CCU Auto-Weight control module.",
+        "tolerance": "Flap counterweight moment arm: 250 mm. Gate seal clearance: 1.5 mm neoprene cushion.",
+        "decal": "WARNING: AUTOMATIC PRESSURE FLAP PINCH POINT",
+        "caption": "Diagram 4(a) 9. Outlet & 10. Outlet flap gate: Overtails Discharge Chute & Weighted Retention Flap"
+      },
+      "2.9": {
+        "name": "Air Induction Fan & Central Hollow Rotor Duct",
+        "section": "ASPIRATION & AIR SYSTEM",
+        "flow": "Forced internal cooling air injection through rotor slots",
+        "safety": "Verify negative pressure airflow before starting feed to prevent dust accumulation and overheating.",
+        "specs": "Central hollow drive shaft with air discharge slots located directly behind each beater bar; negative pressure pneumatic exhaust ducting.",
+        "tolerance": "Air volume required: 30–45 m3/min @ 120–150 mm WG static negative pressure.",
+        "decal": "CAUTION: PNEUMATIC AIR FLOW - ROTATING IMPELLER",
+        "caption": "Diagram 4(a) 1. Induction air fan & 7. Exhaust duct: Air Induction Fan & Central Hollow Rotor Duct"
+      },
+      "2.10": {
+        "name": "Machine Base Frame & 75 kW Main Belt Drive",
+        "section": "BASE & DRIVE KINEMATICS",
+        "flow": "Torque transmission to vertical rotor shaft @ 465 RPM",
+        "safety": "V-belt guards must remain securely bolted at all times during operation.",
+        "specs": "Bottom-mounted 75 kW electric motor (3-Phase, 50 Hz); multi-V-belt drive with heavy protective guard enclosure.",
+        "tolerance": "Motor: 75 kW, 1,480 RPM nominal. Multi V-belt reduction ratio: 3.18:1 (output 465 RPM).",
+        "decal": "DANGER: HIGH-POWER 75 kW BELT DRIVE - GUARDS MANDATORY",
+        "caption": "Diagram 4(a) 6. Main drive: Machine Base Frame & 75 kW Main Belt Drive"
       }
     }
   },
@@ -986,6 +1386,106 @@ export const TRANSLATIONS = {
         "tolerance": "Verliersichere Schrauben. Lebensmittelechtes Neoprenmoosgummi IP65.",
         "decal": "AMPUTATIONSGEFAHR: ÖFFNEN NUR MIT WERKZEUG GESTATTET",
         "caption": "Diagramm 69(b): Verschraubte Reinigungsklappen für sicheres Entstauen."
+      },
+      "2.1": {
+        "name": "Grain Feed Inlet & Permanent Magnet",
+        "section": "INLET & FEED ASSEMBLY",
+        "flow": "Conditioned whole maize inlet via gravity chute",
+        "safety": "Inspect magnet face at every shift stop. Never use bare hands to remove metal splinters to prevent severe lacerations.",
+        "specs": "Feed capacity 2.0–7.0 t/h (VBF 5A: 2–3 t/h; VBF 7B: 3–4 t/h; VBF 10A: 4–7 t/h); high-intensity permanent plate/drum magnet.",
+        "tolerance": "Rare-earth magnetic trap rated >10,000 Gauss. Plate clearance 25 mm.",
+        "decal": "CAUTION: RARE-EARTH MAGNET - PINCH & CUT HAZARD",
+        "caption": "Diagram 4(a) 4. Inlet: Grain Feed Inlet & Permanent Magnet"
+      },
+      "2.2": {
+        "name": "Motorized Inlet Screw Feeder & Compact Clutch",
+        "section": "INLET & FEED ASSEMBLY",
+        "flow": "Horizontal metered feed into lower housing",
+        "safety": "Electrically interlocked with main motor ammeter load; automatically halts feed upon current overload spikes.",
+        "specs": "Independent motorized variable-speed scroll drive; compact single-unit scroll design.",
+        "tolerance": "Variable flight pitch 65 mm. Radial barrel flight clearance: 2.0 mm (+/- 0.5 mm).",
+        "decal": "WARNING: AUTOMATIC AUGER ROTATION - KEEP CLEAR",
+        "caption": "Diagram 4(a) 5. Inlet screw feeder: Motorized Inlet Screw Feeder & Compact Clutch"
+      },
+      "2.3": {
+        "name": "Vertical Distribution Scroll",
+        "section": "ROTOR & SCOURING CHAMBER",
+        "flow": "Vertical upward propulsion into scouring chamber",
+        "safety": "Lock-Out / Tag-Out (LOTO) mandatory before manual cleanout of lower scroll intake cavity.",
+        "specs": "Heavy-duty cast-iron vertical spiral scroll attached to the lower rotor shaft.",
+        "tolerance": "Spiral flight lead angle: 18 deg. Bottom throat radial clearance: 3.5 mm nominal.",
+        "decal": "DANGER: CONFINED ROTATING SPIRAL PINCH ZONE",
+        "caption": "Diagram 4(a) 8. Distribution scroll: Vertical Distribution Scroll"
+      },
+      "2.4": {
+        "name": "Cylindrical Steel Rotor (Split Segment Design)",
+        "section": "ROTOR & DRIVE KINEMATICS",
+        "flow": "Intense kernel-to-kernel friction zone @ 465 RPM",
+        "safety": "Lock-Out / Tag-Out (LOTO) mandatory before opening access panels; contact with the revolving rotor causes severe injury.",
+        "specs": "Smooth cylindrical steel rotor operating at 465 RPM; split segment design (dismantles into two halves for maintenance).",
+        "tolerance": "Rotor dynamic balance tolerance: < 2.5 g mm/kg. Operating velocity: 465 RPM (+/- 5 RPM).",
+        "decal": "DANGER: HIGH-TORQUE ROTATING CYLINDER - LOTO MANDATORY",
+        "caption": "Diagram 4(a) 2. Steel rotor: Cylindrical Steel Rotor (Split Segment Design)"
+      },
+      "2.5": {
+        "name": "Detachable Steel Beater Bars (Qty 2)",
+        "section": "ROTOR & SCOURING CHAMBER",
+        "flow": "Radial grain agitation and tumbling across screens",
+        "safety": "Verify beater bar mounting bolt torque (85 Nm) and check for edge wear before closing screen housing.",
+        "specs": "Two hardened-steel, rigid impact/agitator bars mounted on opposite sides of the rotor.",
+        "tolerance": "Dual-opposed mounting at 180 deg. Radial tip-to-screen clearance: 11.0 mm (+/- 1.0 mm).",
+        "decal": "CAUTION: HARDENED IMPACT BARS - CHECK BOLT TORQUE",
+        "caption": "Diagram 4(a) 2. Steel rotor / Beaters: Detachable Steel Beater Bars (Qty 2)"
+      },
+      "2.6": {
+        "name": "Multifaceted Slotted Screen Cartridge & Rib Cage",
+        "section": "SCREEN ASSEMBLY",
+        "flow": "Pericarp (bran) and germ offal aspiration exit",
+        "safety": "Inspect screen apertures regularly for foreign object damage or wear. Use protective gloves to handle sharp edges.",
+        "specs": "8 multifaceted vertical slotted screen panels enclosed in a heavy-gauge steel rib cage and outer clamping frames.",
+        "tolerance": "8-segment polygonal cage. Slotted aperture width: 1.0 mm x 12.0 mm (calibrated for maize).",
+        "decal": "CAUTION: PRECISION SLOTTED SEPARATION SURFACE",
+        "caption": "Diagram 4(a) 3. Slotted screen: Multifaceted Slotted Screen Cartridge & Rib Cage"
+      },
+      "2.7": {
+        "name": "Independently Adjustable Resistance Bars",
+        "section": "RETARDATION & PRESSURE CONTROL",
+        "flow": "Swirl retardation and friction intensification",
+        "safety": "Adjust resistance bolts evenly across all quadrants to prevent uneven screen barrel pressure.",
+        "specs": "Rigid alloy resistance bars mounted inside the screen jacket with external adjusting bolts.",
+        "tolerance": "External adjusting screw travel: 0–15 mm protrusion into grain stream.",
+        "decal": "CAUTION: HIGH RETARDATION PRESSURE ADJUSTMENT",
+        "caption": "Diagram 4(a) Resistance bars: Independently Adjustable Resistance Bars"
+      },
+      "2.8": {
+        "name": "Overtails Discharge Chute & Weighted Retention Flap",
+        "section": "DISCHARGE CONTROL",
+        "flow": "Degermed samp & endosperm discharge stream",
+        "safety": "Keep hands clear of discharge flap mechanism during automatic CCU modulation.",
+        "specs": "Counter-weighted hinged discharge gate with optional CCU Auto-Weight control module.",
+        "tolerance": "Flap counterweight moment arm: 250 mm. Gate seal clearance: 1.5 mm neoprene cushion.",
+        "decal": "WARNING: AUTOMATIC PRESSURE FLAP PINCH POINT",
+        "caption": "Diagram 4(a) 9. Outlet & 10. Outlet flap gate: Overtails Discharge Chute & Weighted Retention Flap"
+      },
+      "2.9": {
+        "name": "Air Induction Fan & Central Hollow Rotor Duct",
+        "section": "ASPIRATION & AIR SYSTEM",
+        "flow": "Forced internal cooling air injection through rotor slots",
+        "safety": "Verify negative pressure airflow before starting feed to prevent dust accumulation and overheating.",
+        "specs": "Central hollow drive shaft with air discharge slots located directly behind each beater bar; negative pressure pneumatic exhaust ducting.",
+        "tolerance": "Air volume required: 30–45 m3/min @ 120–150 mm WG static negative pressure.",
+        "decal": "CAUTION: PNEUMATIC AIR FLOW - ROTATING IMPELLER",
+        "caption": "Diagram 4(a) 1. Induction air fan & 7. Exhaust duct: Air Induction Fan & Central Hollow Rotor Duct"
+      },
+      "2.10": {
+        "name": "Machine Base Frame & 75 kW Main Belt Drive",
+        "section": "BASE & DRIVE KINEMATICS",
+        "flow": "Torque transmission to vertical rotor shaft @ 465 RPM",
+        "safety": "V-belt guards must remain securely bolted at all times during operation.",
+        "specs": "Bottom-mounted 75 kW electric motor (3-Phase, 50 Hz); multi-V-belt drive with heavy protective guard enclosure.",
+        "tolerance": "Motor: 75 kW, 1,480 RPM nominal. Multi V-belt reduction ratio: 3.18:1 (output 465 RPM).",
+        "decal": "DANGER: HIGH-POWER 75 kW BELT DRIVE - GUARDS MANDATORY",
+        "caption": "Diagram 4(a) 6. Main drive: Machine Base Frame & 75 kW Main Belt Drive"
       }
     }
   }

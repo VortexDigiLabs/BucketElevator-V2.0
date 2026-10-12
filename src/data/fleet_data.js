@@ -31,14 +31,14 @@ export const FLEET_MACHINES = [
   },
   {
     id: 'satake_vbf',
-    name: 'Satake VBF Vertical Maize Degermer',
+    name: 'Satake VBF Vertical Maize Degermer (Diagram 3 & 4a)',
     subtitle: 'Mechanical Degermination & Decortication System',
     syllabus: 'SAGMA Maize Milling Module 4: Mechanical Degermination & Flaking',
     modelUrl: '/assets/machines/satake_degermer/models/satake_vbf.glb',
     thumbnail: '/assets/machines/satake_degermer/diagrams/diagram_4a_isometric.png',
     fallbackImg: '/assets/machines/satake_degermer/diagrams/remaster_preview.png',
     status: 'live',
-    statusLabel: 'WebGL Live (12 Nodes)',
+    statusLabel: 'WebGL Live (10 Nodes)',
     assetSummary: {
       totalFiles: 14,
       totalSize: '32.1 MB',
