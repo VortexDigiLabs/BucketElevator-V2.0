@@ -2110,3 +2110,93 @@ svg { flex-shrink: 0; }
   border: 1px solid rgba(0, 90, 54, 0.2);
   display: inline-block;
 }
+
+/* ============================================================
+   16:9 LANDSCAPE FULL-UI SHOWCASE & BROADCAST MODE
+   ============================================================ */
+.btn-record-showcase {
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.35);
+  color: #DC2626;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+.btn-record-showcase:hover {
+  background: #DC2626;
+  border-color: #DC2626;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(220, 38, 38, 0.4);
+}
+.btn-record-showcase.recording {
+  background: #DC2626;
+  border-color: #DC2626;
+  color: #fff;
+  animation: pulse-showcase-rec 1.2s infinite;
+}
+.rec-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+@keyframes pulse-showcase-rec {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* Strict 16:9 Landscape Full-UI Lock (1920x1080) */
+body.showcase-16-9,
+body.cinema-16-9 {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #06090e !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+body.showcase-16-9 #app-shell,
+body.cinema-16-9 #app-shell {
+  aspect-ratio: 16 / 9 !important;
+  width: 100vw !important;
+  max-height: 56.25vw !important; /* 9/16 = 56.25% */
+  height: 56.25vw !important;
+  max-width: 177.777778vh !important;
+  margin: auto !important;
+  overflow: hidden !important;
+  position: relative !important;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9) !important;
+}
+
+body.showcase-16-9 .workspace-body,
+body.cinema-16-9 .workspace-body {
+  height: calc(100% - 60px) !important;
+}
+
+/* Eliminate scrollbars for pristine video recording */
+body.showcase-16-9 *,
+body.showcase-16-9 *::-webkit-scrollbar {
+  scrollbar-width: none !important;
+}
+body.showcase-16-9 *::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* 3D Callout Decluttering: Only active node badge displays with smooth fade */
+body.showcase-declutter .hud-item {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: opacity 0.4s ease, transform 0.25s ease !important;
+}
+body.showcase-declutter .hud-item.active {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: translate(-50%, -100%) scale(1.05) !important;
+}
+

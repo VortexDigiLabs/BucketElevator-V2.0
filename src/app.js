@@ -115,6 +115,15 @@ class ElevatorViewer {
     // 16:9 Cinema Frame
     this.isCinema169 = false;
 
+    // 30s Master Showcase Recording State
+    this.isShowcaseRecording = false;
+    this.isShowcaseActive = false;
+    this.showcaseStartTime = 0;
+    this.showcaseRafId = null;
+    this.showcaseMediaRecorder = null;
+    this.showcaseStream = null;
+    this.lastShowcaseNodeId = null;
+
     // Explored Progress
     this.exploredParts = new Set();
 
@@ -1760,6 +1769,17 @@ class ElevatorViewer {
       btnCinema.addEventListener('click', () => this.toggleCinema169());
     }
 
+    const btnShowcase = document.getElementById('btn-record-showcase');
+    if (btnShowcase) {
+      btnShowcase.addEventListener('click', () => {
+        if (this.isShowcaseRecording) {
+          this.stopShowcaseRecording();
+        } else {
+          this.startMasterShowcase();
+        }
+      });
+    }
+
     const btnVR = document.getElementById('btn-enter-vr');
     if (btnVR) {
       btnVR.addEventListener('click', () => this.enterVR());
@@ -2078,6 +2098,447 @@ class ElevatorViewer {
     const btn = document.getElementById('btn-toggle-cinema');
     if (btnLabel) btnLabel.textContent = this.isCinema169 ? 'Exit 16:9' : '16:9';
     if (btn) btn.classList.toggle('active', this.isCinema169);
+    this.onWindowResize();
+  }
+
+  updateExplodedSlider(val) {
+    this.explodeFactor = Math.max(0, Math.min(1.0, val));
+    const slider = document.getElementById('slider-exploded');
+    const readout = document.getElementById('exploded-readout');
+    if (slider) slider.value = this.explodeFactor;
+    if (readout) readout.textContent = `${Math.round(this.explodeFactor * 100)}% Offset`;
+    this.applyExplosion();
+  }
+
+  selectShowcaseNode(nodeId) {
+    const part = this.activeParts.find(p => p.partNumber === nodeId);
+    if (!part) return;
+    this.activePart = part;
+    this.exploredParts.add(part.partNumber);
+
+    // 1. Highlight 3D mesh
+    if (this.model) {
+      const targetMesh = this.model.getObjectByName(part.meshNodeName);
+      if (targetMesh) {
+        this.highlightMeshNode(targetMesh);
+      }
+    }
+
+    // 2. Update Right Specifications Panel
+    this.updateTelemetryCard(part);
+
+    // 3. Highlight in Left Components list and smoothly scroll into view
+    this.updatePartsDrawerUI(part.partNumber);
+
+    // 4. Update exploration progress
+    this.updateExplorationProgress();
+  }
+
+  async startMasterShowcase() {
+    if (this.isShowcaseRecording) return;
+
+    if (this.isAutoTourActive) this.stopAutoTour();
+    this.pauseTurntable();
+    this.isDryingCamera = false;
+
+    // 1. One-Click 16:9 Full-Tab Video Recorder (getDisplayMedia)
+    let stream;
+    try {
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+        alert('getDisplayMedia is not supported in this browser. Please use Chrome, Edge, or Firefox.');
+        return;
+      }
+
+      stream = await navigator.mediaDevices.getDisplayMedia({
+        video: {
+          displaySurface: "browser",
+          width: { ideal: 1920, max: 1920 },
+          height: { ideal: 1080, max: 1080 },
+          aspectRatio: { ideal: 16 / 9 },
+          frameRate: { ideal: 60 }
+        },
+        audio: false,
+        preferCurrentTab: true
+      });
+    } catch (err) {
+      console.warn('[Showcase] Screen capture cancelled or denied:', err);
+      return;
+    }
+
+    this.showcaseStream = stream;
+
+    const videoTrack = stream.getVideoTracks()[0];
+    if (videoTrack) {
+      videoTrack.addEventListener('ended', () => {
+        if (this.isShowcaseRecording) {
+          this.stopShowcaseRecording(false);
+        }
+      });
+    }
+
+    // 2. Strict 16:9 Landscape Full-UI Lock & Fullscreen
+    document.body.classList.add('showcase-16-9');
+    document.body.classList.add('showcase-declutter');
+    this.isCinema169 = true;
+    const cinemaLabel = document.getElementById('cinema-label');
+    const cinemaBtn = document.getElementById('btn-toggle-cinema');
+    if (cinemaLabel) cinemaLabel.textContent = 'Exit 16:9';
+    if (cinemaBtn) cinemaBtn.classList.add('active');
+
+    if (document.documentElement.requestFullscreen && !document.fullscreenElement) {
+      try {
+        await document.documentElement.requestFullscreen();
+      } catch (fsErr) {
+        console.warn('[Showcase] Fullscreen request:', fsErr);
+      }
+    }
+
+    this.onWindowResize();
+
+    this.controls.enabled = false;
+    this.controls.autoRotate = false;
+
+    const btnShowcase = document.getElementById('btn-record-showcase');
+    const lblShowcase = document.getElementById('record-showcase-label');
+    if (btnShowcase) btnShowcase.classList.add('recording');
+    if (lblShowcase) lblShowcase.textContent = 'Recording 30s...';
+
+    // State: Machine Operational/Running (2.80 m/s, 136.8 RPM), View = Exterior, Opacity = 100%, Explode = 0%
+    this.isMachineRunning = true;
+    this.targetBeltSpeed = 2.80;
+    this.currentBeltSpeed = 2.80;
+    this.nominalRPM = 136.8;
+    this.nominalTonnage = 78.5;
+
+    const btnMachineToggle = document.getElementById('btn-machine-toggle');
+    const machineStatusBadge = document.getElementById('machine-status-badge');
+    const machineStatusText = document.getElementById('machine-status-text');
+    const headerMachineLabel = document.getElementById('header-machine-label');
+    const headerMachineToggle = document.getElementById('btn-header-machine-toggle');
+    if (btnMachineToggle) {
+      btnMachineToggle.classList.add('running');
+      const machineBtnLabel = document.getElementById('machine-btn-label');
+      if (machineBtnLabel) machineBtnLabel.textContent = 'Stop Machine';
+    }
+    if (headerMachineToggle) {
+      headerMachineToggle.classList.add('running');
+      headerMachineToggle.classList.remove('stopped');
+      if (headerMachineLabel) headerMachineLabel.innerHTML = '&#9632; Stop Machine';
+    }
+    if (machineStatusBadge) {
+      machineStatusBadge.classList.add('running');
+      machineStatusBadge.classList.remove('standby');
+    }
+    if (machineStatusText) machineStatusText.textContent = 'OPERATIONAL - 2.80 m/s';
+
+    const btnExt = document.getElementById('btn-exterior');
+    const btnCut = document.getElementById('btn-cutaway');
+    if (btnExt) btnExt.classList.add('active');
+    if (btnCut) btnCut.classList.remove('active');
+
+    this.casingOpacity = 1.0;
+    this.updateOpacitySlider(1.0);
+    this.applyCasingOpacity();
+    this.updateExplodedSlider(0.0);
+
+    this.lastShowcaseNodeId = null;
+    this.selectShowcaseNode('13');
+
+    // Camera initial pose for Boot
+    this.camera.position.set(2.4, 1.2, 2.6);
+    this.controls.target.set(0, 0.55, 0);
+
+    // 3. Wait 1.2 seconds for fullscreen toast notification to disappear before starting MediaRecorder & timeline
+    await new Promise(resolve => setTimeout(resolve, 1200));
+
+    let mimeType = 'video/webm;codecs=vp9';
+    if (!MediaRecorder.isTypeSupported(mimeType)) {
+      mimeType = 'video/webm;codecs=vp8';
+      if (!MediaRecorder.isTypeSupported(mimeType)) {
+        mimeType = 'video/webm';
+      }
+    }
+
+    const recordedChunks = [];
+    try {
+      this.showcaseMediaRecorder = new MediaRecorder(stream, {
+        mimeType,
+        videoBitsPerSecond: 12000000
+      });
+    } catch (e) {
+      this.showcaseMediaRecorder = new MediaRecorder(stream);
+    }
+
+    this.showcaseMediaRecorder.ondataavailable = (event) => {
+      if (event.data && event.data.size > 0) {
+        recordedChunks.push(event.data);
+      }
+    };
+
+    this.showcaseMediaRecorder.onstop = () => {
+      if (this.showcaseStream) {
+        this.showcaseStream.getTracks().forEach(t => t.stop());
+        this.showcaseStream = null;
+      }
+
+      if (recordedChunks.length > 0) {
+        const blob = new Blob(recordedChunks, { type: mimeType });
+        const downloadUrl = URL.createObjectURL(blob);
+        const downloadLink = document.createElement('a');
+        downloadLink.style.display = 'none';
+        downloadLink.href = downloadUrl;
+        downloadLink.download = 'sagma-bucket-elevator-30s-master-16x9.webm';
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        setTimeout(() => {
+          document.body.removeChild(downloadLink);
+          URL.revokeObjectURL(downloadUrl);
+        }, 1500);
+      }
+
+      this.cleanupShowcase();
+    };
+
+    this.isShowcaseRecording = true;
+    this.isShowcaseActive = true;
+    this.showcaseMediaRecorder.start(100);
+
+    const timelineStartPerf = performance.now();
+    this.showcaseStartTime = timelineStartPerf;
+
+    const timelineTick = (now) => {
+      if (!this.isShowcaseActive) return;
+
+      const elapsedSec = (now - timelineStartPerf) / 1000.0;
+      this.updateShowcaseTimeline(elapsedSec);
+
+      if (elapsedSec < 30.0) {
+        this.showcaseRafId = requestAnimationFrame(timelineTick);
+      } else {
+        setTimeout(() => {
+          if (this.showcaseMediaRecorder && this.showcaseMediaRecorder.state === 'recording') {
+            this.showcaseMediaRecorder.stop();
+          }
+        }, 200);
+      }
+    };
+
+    this.showcaseRafId = requestAnimationFrame(timelineTick);
+  }
+
+  updateShowcaseTimeline(t) {
+    const tClamped = Math.max(0, Math.min(30.0, t));
+
+    const smoothstep = (min, max, value) => {
+      const x = Math.max(0, Math.min(1, (value - min) / (max - min)));
+      return x * x * (3 - 2 * x);
+    };
+
+    // Node Schedule
+    let scheduledNodeId = '13';
+    if (tClamped >= 27.5) scheduledNodeId = '11';
+    else if (tClamped >= 25.0) scheduledNodeId = '06';
+    else if (tClamped >= 22.5) scheduledNodeId = '05';
+    else if (tClamped >= 20.0) scheduledNodeId = '02';
+    else if (tClamped >= 18.0) scheduledNodeId = '03';
+    else if (tClamped >= 15.5) scheduledNodeId = '08';
+    else if (tClamped >= 12.5) scheduledNodeId = '09';
+    else if (tClamped >= 10.0) scheduledNodeId = '12';
+    else if (tClamped >= 8.5) scheduledNodeId = '01';
+    else if (tClamped >= 6.6) scheduledNodeId = '07';
+    else if (tClamped >= 3.3) scheduledNodeId = '10';
+    else scheduledNodeId = '13';
+
+    if (this.lastShowcaseNodeId !== scheduledNodeId) {
+      this.lastShowcaseNodeId = scheduledNodeId;
+      this.selectShowcaseNode(scheduledNodeId);
+    }
+
+    // ACT 1: (0.0s to 10.0s) - Normal Exterior & Structural Sweep
+    if (tClamped <= 10.0) {
+      const p1 = smoothstep(0.0, 10.0, tClamped);
+
+      if (this.casingOpacity !== 1.0) {
+        this.casingOpacity = 1.0;
+        this.updateOpacitySlider(1.0);
+        this.applyCasingOpacity();
+      }
+      if (this.explodeFactor !== 0.0) {
+        this.updateExplodedSlider(0.0);
+      }
+
+      const theta = 0.85 + p1 * 0.70;
+      const radius = 3.2;
+      this.camera.position.x = Math.sin(theta) * radius;
+      this.camera.position.z = Math.cos(theta) * radius;
+      this.camera.position.y = 1.10 + p1 * (9.80 - 1.10);
+
+      this.controls.target.x = 0;
+      this.controls.target.y = 0.55 + p1 * (9.20 - 0.55);
+      this.controls.target.z = 0;
+    }
+    // ACT 2: (10.0s to 20.0s) - Working Belt & Buckets (X-Ray Cutaway)
+    else if (tClamped <= 20.0) {
+      const btnExt = document.getElementById('btn-exterior');
+      const btnCut = document.getElementById('btn-cutaway');
+      if (btnCut && !btnCut.classList.contains('active')) {
+        btnCut.classList.add('active');
+        if (btnExt) btnExt.classList.remove('active');
+      }
+
+      if (tClamped <= 11.5) {
+        const pGlide = smoothstep(10.0, 11.5, tClamped);
+
+        const curOp = 1.0 - pGlide * 0.70;
+        this.casingOpacity = curOp;
+        this.updateOpacitySlider(curOp);
+        this.applyCasingOpacity();
+
+        const theta10 = 0.85 + 0.70;
+        const startCamX = Math.sin(theta10) * 3.2;
+        const startCamZ = Math.cos(theta10) * 3.2;
+        const startCamY = 9.80;
+
+        const endCamX = 1.60;
+        const endCamY = 1.00;
+        const endCamZ = 1.80;
+
+        this.camera.position.x = startCamX + pGlide * (endCamX - startCamX);
+        this.camera.position.y = startCamY + pGlide * (endCamY - startCamY);
+        this.camera.position.z = startCamZ + pGlide * (endCamZ - startCamZ);
+
+        this.controls.target.x = pGlide * 0.15;
+        this.controls.target.y = 9.20 - pGlide * (9.20 - 0.65);
+        this.controls.target.z = pGlide * 0.10;
+      } else if (tClamped <= 18.0) {
+        const pTrack = smoothstep(11.5, 18.0, tClamped);
+
+        if (this.casingOpacity !== 0.30) {
+          this.casingOpacity = 0.30;
+          this.updateOpacitySlider(0.30);
+          this.applyCasingOpacity();
+        }
+
+        this.camera.position.x = 1.60 - pTrack * 0.30;
+        this.camera.position.y = 1.00 + pTrack * (9.40 - 1.00);
+        this.camera.position.z = 1.80 - pTrack * 0.20;
+
+        this.controls.target.x = -0.25 + pTrack * 0.35;
+        this.controls.target.y = 0.65 + pTrack * (9.10 - 0.65);
+        this.controls.target.z = 0.05 * (1 - pTrack);
+      } else {
+        const pHold = (tClamped - 18.0) / 2.0;
+        this.camera.position.x = 1.30 + Math.sin(pHold * 0.8) * 0.15;
+        this.camera.position.y = 9.40 + Math.cos(pHold * 0.8) * 0.05;
+        this.camera.position.z = 1.60 + Math.sin(pHold * 0.8) * 0.15;
+
+        this.controls.target.x = 0.10;
+        this.controls.target.y = 9.10;
+        this.controls.target.z = 0;
+      }
+    }
+    // ACT 3: (20.0s to 30.0s) - Exploded Engineering View & Diagnostics
+    else {
+      if (this.casingOpacity !== 0.35) {
+        this.casingOpacity = 0.35;
+        this.updateOpacitySlider(0.35);
+        this.applyCasingOpacity();
+      }
+
+      if (tClamped < 20.5) {
+        this.updateExplodedSlider(0.0);
+      } else if (tClamped <= 25.5) {
+        const pExp = smoothstep(20.5, 25.5, tClamped);
+        this.updateExplodedSlider(pExp);
+      } else if (tClamped <= 29.0) {
+        this.updateExplodedSlider(1.0);
+      } else {
+        const pCollapse = smoothstep(29.0, 30.0, tClamped);
+        this.updateExplodedSlider(1.0 - pCollapse);
+      }
+
+      if (tClamped <= 21.5) {
+        const pPull = smoothstep(20.0, 21.5, tClamped);
+
+        const startCamX = 1.30;
+        const startCamY = 9.40;
+        const startCamZ = 1.60;
+
+        const endCamX = 8.60;
+        const endCamY = 5.40;
+        const endCamZ = 10.20;
+
+        this.camera.position.x = startCamX + pPull * (endCamX - startCamX);
+        this.camera.position.y = startCamY + pPull * (endCamY - startCamY);
+        this.camera.position.z = startCamZ + pPull * (endCamZ - startCamZ);
+
+        this.controls.target.x = 0.10 * (1 - pPull);
+        this.controls.target.y = 9.10 - pPull * (9.10 - 4.80);
+        this.controls.target.z = 0;
+      } else {
+        const orbitTime = tClamped - 21.5;
+        const initialAngle = Math.atan2(8.60, 10.20);
+        const currentAngle = initialAngle + orbitTime * 0.055;
+        const radius = Math.hypot(8.60, 10.20);
+
+        this.camera.position.x = Math.sin(currentAngle) * radius;
+        this.camera.position.z = Math.cos(currentAngle) * radius;
+        this.camera.position.y = 5.40;
+
+        this.controls.target.set(0, 4.80, 0);
+      }
+    }
+  }
+
+  stopShowcaseRecording(download = true) {
+    if (!this.isShowcaseRecording) return;
+    this.isShowcaseActive = false;
+
+    if (this.showcaseRafId) {
+      cancelAnimationFrame(this.showcaseRafId);
+      this.showcaseRafId = null;
+    }
+
+    if (this.showcaseMediaRecorder && this.showcaseMediaRecorder.state === 'recording') {
+      if (!download) {
+        this.showcaseMediaRecorder.ondataavailable = null;
+      }
+      this.showcaseMediaRecorder.stop();
+    } else {
+      this.cleanupShowcase();
+    }
+  }
+
+  cleanupShowcase() {
+    this.isShowcaseRecording = false;
+    this.isShowcaseActive = false;
+
+    if (this.showcaseStream) {
+      this.showcaseStream.getTracks().forEach(t => t.stop());
+      this.showcaseStream = null;
+    }
+
+    const btnShowcase = document.getElementById('btn-record-showcase');
+    const lblShowcase = document.getElementById('record-showcase-label');
+    if (btnShowcase) btnShowcase.classList.remove('recording');
+    if (lblShowcase) lblShowcase.textContent = 'Record 30s Showcase';
+
+    document.body.classList.remove('showcase-16-9');
+    document.body.classList.remove('showcase-declutter');
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+
+    this.updateExplodedSlider(0.0);
+    this.casingOpacity = 0.35;
+    this.updateOpacitySlider(0.35);
+    this.applyCasingOpacity();
+
+    this.controls.enabled = true;
+    this.camera.position.copy(this.defaultCamPos);
+    this.controls.target.copy(this.defaultLookPos);
+
     this.onWindowResize();
   }
 
